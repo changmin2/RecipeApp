@@ -1,7 +1,13 @@
+
+
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recipe_app/common/secure_storage/secure_storage.dart';
+import 'package:recipe_app/user/provider/auth_provider.dart';
+import 'package:recipe_app/user/view/login_screen.dart';
 
 import '../const/data.dart';
 
@@ -56,6 +62,7 @@ class CustomInterceptor extends Interceptor{
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
+    ref.read(authProvider).logout();
     return handler.reject(err);
   }
 

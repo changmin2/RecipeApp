@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_app/common/view/root_tap.dart';
 import 'package:recipe_app/user/provider/user_me_provider.dart';
 import 'package:recipe_app/user/repository/user_me_repository.dart';
 import 'package:go_router/go_router.dart';
@@ -27,6 +28,11 @@ class AuthProviderNotifier extends ChangeNotifier{
   }
 
   List<GoRoute> get routes => [
+    GoRoute(
+        path: '/',
+        name: RootTab.routeName,
+        builder: (_,__) => RootTab()
+    ),
     GoRoute(
         path: '/splash',
         name: SplashScreen.routeName,
