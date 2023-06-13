@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/common/const/colors.dart';
@@ -10,24 +12,11 @@ class SplashScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef) {
-    return DefaultLayout(
-      backgroundColor: PRIMARY_COLOR,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'asset/img/logo/splash.jpg',
-              width: MediaQuery.of(context).size.width/2,
-            ),
-            const SizedBox(height: 16.0),
-            CircularProgressIndicator(
-              color: Colors.white,
-            ),
-          ],
-        ),
-      ),
-    );
+
+    return Image.asset(
+                  'asset/img/logo/splashV3.png',
+                  width: MediaQuery.of(context).size.width,
+                  fit: BoxFit.cover,
+                );
   }
 }
