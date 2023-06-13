@@ -16,10 +16,27 @@ class DefaultLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: renderAppBar(),
       //??는 왼쪽 값이 null 이면 ?? 뒤에 값 적용
       backgroundColor: backgroundColor ?? Colors.white,
       body: child,
 
+    );
+  }
+  AppBar renderAppBar(){
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      title: Center(
+        child: Text(
+          '주부의 레시피',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: Colors.black
+          ),
+        ),
+      ),
     );
   }
 }
