@@ -23,20 +23,23 @@ class DefaultLayout extends StatelessWidget {
 
     );
   }
-  AppBar renderAppBar(){
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      title: Center(
-        child: Text(
-          '주부의 레시피',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: Colors.black
+  AppBar? renderAppBar(){
+    if(title !=null){
+      return AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Center(
+          child: Text(
+            title!,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: Colors.black
+            ),
           ),
         ),
-      ),
-    );
+      );
+    }
+    return null;
   }
 }

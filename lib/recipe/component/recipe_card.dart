@@ -45,7 +45,7 @@ class RecipeCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.network(
-                  'http://file.okdab.com/UserFiles/searching/recipe/000200.jpg',
+                  imgUrl,
                   fit:BoxFit.fill,
               ),
             ),
@@ -128,9 +128,13 @@ class RecipeCard extends StatelessWidget {
                     calorie
                   )
                 ],
-              )
+              ),
+              const SizedBox(height: 8.0),
+              Divider(color: Colors.black,),
+              const SizedBox(height: 8.0)
             ],
           ),
+
         )
 
       ],
