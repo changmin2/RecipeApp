@@ -1,9 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:recipe_app/common/model/model_with_id.dart';
 
 part 'recipe_model.g.dart';
 
 @JsonSerializable()
-class RecipeModel{
+class RecipeModel implements IModelWithId{
   final int recipe_id;
   final String recipe_nm;
   final String summary;
