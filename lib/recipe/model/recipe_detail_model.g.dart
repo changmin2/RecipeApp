@@ -49,13 +49,17 @@ Map<String, dynamic> _$RecipeDetailModelToJson(RecipeDetailModel instance) =>
     };
 
 DetailDto _$DetailDtoFromJson(Map<String, dynamic> json) => DetailDto(
-      cooking_no: json['cooking_no'] as String,
+      id: json['id'] as int,
+      recipe_id: json['recipe_id'] as int,
+      cooking_no: json['cooking_no'] as int,
       cooking_dc: json['cooking_dc'] as String,
       cooking_img: json['cooking_img'] as String,
       step_tip: json['step_tip'] as String,
     );
 
 Map<String, dynamic> _$DetailDtoToJson(DetailDto instance) => <String, dynamic>{
+      'id': instance.id,
+      'recipe_id': instance.recipe_id,
       'cooking_no': instance.cooking_no,
       'cooking_dc': instance.cooking_dc,
       'cooking_img': instance.cooking_img,

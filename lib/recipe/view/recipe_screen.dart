@@ -18,7 +18,7 @@ class RecipeScreen extends ConsumerWidget {
             onTap: (){
               context.goNamed(RecipeDetailScreen.routeName,
                   pathParameters: {
-                    'id':recipe.recipe_id.toString()
+                    'rid':recipe.recipe_id.toString()
                   });
             },
             child: RecipeCard(
@@ -31,6 +31,6 @@ class RecipeScreen extends ConsumerWidget {
                 level: recipe.level_nm
             ),
           );
-        });;
+        });
   }
 }

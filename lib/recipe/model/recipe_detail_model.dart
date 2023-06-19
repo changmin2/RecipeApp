@@ -35,12 +35,16 @@ class RecipeDetailModel extends RecipeModel{
 
 @JsonSerializable()
 class DetailDto{
-  final String cooking_no;
+  final int id;
+  final int recipe_id;
+  final int cooking_no;
   final String cooking_dc;
   final String cooking_img;
   final String step_tip;
 
   DetailDto({
+    required this.id,
+    required this.recipe_id,
     required this.cooking_no,
     required this.cooking_dc,
     required this.cooking_img,
@@ -49,7 +53,4 @@ class DetailDto{
 
   factory DetailDto.fromJson(Map<String,dynamic> json)
   => _$DetailDtoFromJson(json);
-
-  Map<String,dynamic> toJson() => _$DetailDtoToJson(this);
-
 }

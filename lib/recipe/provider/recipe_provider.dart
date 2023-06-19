@@ -14,7 +14,7 @@ Provider.family<RecipeModel?,int>((ref,id) {
     return null;
   }
 
-  return state.data.firstWhereOrNull((element) => element.id == id);
+  return state.data.firstWhereOrNull((element) => element.recipe_id == id);
 
 });
 
@@ -57,7 +57,7 @@ class RestaurantStateNotifier extends PaginationProvider<RecipeModel,RecipeRepos
     //요청 10번째 모델
     // 데이터가 없음
     // 캐시의 끝에다가 데이터를 추가
-    if(pState.data.where((e) => e.id==id).isEmpty){
+    if(pState.data.where((e) => e.recipe_id==id).isEmpty){
       state = pState.copyWith(
           data: <RecipeModel>[
             ...pState.data,
@@ -67,7 +67,7 @@ class RestaurantStateNotifier extends PaginationProvider<RecipeModel,RecipeRepos
 
     }else{
       state = pState.copyWith(
-          data: pState.data.map<RecipeModel>((e) => e.id==id ? resp : e).toList()
+          data: pState.data.map<RecipeModel>((e) => e.recipe_id==id ? resp : e).toList()
       );
     }
   }

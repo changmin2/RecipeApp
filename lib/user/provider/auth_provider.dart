@@ -35,10 +35,11 @@ class AuthProviderNotifier extends ChangeNotifier{
         builder: (_,__) => RootTab(),
         routes: [
           GoRoute(
-              path: 'recipe/:id',
+              path: 'recipe/:rid',
               name: RecipeDetailScreen.routeName,
               builder: (_,state) => RecipeDetailScreen(
-                id: int.parse(state.pathParameters['id']!),
+                recipe_id: int.parse(state.pathParameters['rid']!),
+                  //rid: 123
               )
           )
         ]
