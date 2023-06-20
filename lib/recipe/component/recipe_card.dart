@@ -16,6 +16,8 @@ class RecipeCard extends StatelessWidget {
   final String imgUrl;
   //난이도
   final String level;
+  //상세페이지인지
+  final bool isDetail;
 
 
   const RecipeCard({
@@ -26,6 +28,7 @@ class RecipeCard extends StatelessWidget {
     required this.calorie,
     required this.imgUrl,
     required this.level,
+    this.isDetail=false,
     Key? key}) : super(key: key);
 
   @override
@@ -39,11 +42,11 @@ class RecipeCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: isDetail ? 0 : 16),
           child: SizedBox(
             height: 200,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(isDetail ? 0 : 12),
               child: Image.network(
                   imgUrl,
                   fit:BoxFit.fill,
@@ -130,7 +133,7 @@ class RecipeCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8.0),
-              Divider(color: Colors.black,),
+              Divider(color: isDetail ? Colors.red : Colors.black,),
               const SizedBox(height: 8.0)
             ],
           ),
