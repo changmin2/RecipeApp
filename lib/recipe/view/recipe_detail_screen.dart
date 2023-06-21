@@ -42,113 +42,99 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
       );
     }
     if (state is RecipeDetailModel) {
-      return DefaultLayout(
-          child: CustomScrollView(
-            slivers: <Widget>[
-              new SliverAppBar(
-                pinned: true,
-                centerTitle: true,
-                expandedHeight: 400,
-                backgroundColor: Colors.white,
-                bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(0),
-                  child: Padding(
-                    padding: EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      '조리방법',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 24
-                      ),
-                    ),
-                  ),
-                ),
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RecipeCard(
-                        recipe_nm: state.recipe_nm,
-                        summary: state.summary,
-                        nation_nm: state.nation_nm,
-                        cooking_time: state.cooking_time,
-                        calorie: state.calorie,
-                        imgUrl: state.image_url,
-                        level: state.level_nm,
-                        isDetail: true,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-                  return Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          state.data[index].cooking_no.toString() +'.',
-                          style: TextStyle(
-                              fontSize: 20
-                          ),
-                        ),
-                        const SizedBox(height: 8.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            if(state.data[index].cooking_img.length>1)
-                              SizedBox(
-                                child: Image.network(
-                                  state.data[index].cooking_img,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            Flexible(
-                              child: Text(
-                                state.data[index].cooking_dc,
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16.0)
-                      ],
-                    ),
-                  );
-                }, childCount: state.data.length),
-              ),
-            ],
-          )
-      );
+      // return DefaultLayout(
+      //     child: CustomScrollView(
+      //       slivers: <Widget>[
+      //         new SliverAppBar(
+      //           pinned: true,
+      //           centerTitle: true,
+      //           expandedHeight: 400,
+      //           backgroundColor: Colors.white,
+      //           bottom: PreferredSize(
+      //             preferredSize: const Size.fromHeight(0),
+      //             child: Padding(
+      //               padding: EdgeInsets.only(bottom: 10),
+      //               child: Text(
+      //                 '조리방법',
+      //                 textAlign: TextAlign.left,
+      //                 style: TextStyle(
+      //                   fontWeight: FontWeight.w700,
+      //                   fontSize: 24
+      //                 ),
+      //               ),
+      //             ),
+      //           ),
+      //           flexibleSpace: FlexibleSpaceBar(
+      //             background: Column(
+      //               crossAxisAlignment: CrossAxisAlignment.start,
+      //               children: [
+      //                 RecipeCard(
+      //                   recipe_nm: state.recipe_nm,
+      //                   summary: state.summary,
+      //                   nation_nm: state.nation_nm,
+      //                   cooking_time: state.cooking_time,
+      //                   calorie: state.calorie,
+      //                   imgUrl: state.image_url,
+      //                   level: state.level_nm,
+      //                   isDetail: true,
+      //                 ),
+      //               ],
+      //             ),
+      //           ),
+      //         ),
+      //
+      //         SliverList(
+      //
+      //           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+      //             return Padding(
+      //               padding: EdgeInsets.all(16),
+      //               child: Container(
+      //                 child: Column(
+      //                   crossAxisAlignment: CrossAxisAlignment.start,
+      //                   children: [
+      //                     Text(
+      //                       state.data[index].cooking_no.toString() +'.',
+      //                       style: TextStyle(
+      //                           fontSize: 20
+      //                       ),
+      //                     ),
+      //                     const SizedBox(height: 8.0),
+      //                     Row(
+      //                       mainAxisAlignment: MainAxisAlignment.start,
+      //                       children: [
+      //                         if(state.data[index].cooking_img.length>1)
+      //                           SizedBox(
+      //                             child: Image.network(
+      //                               state.data[index].cooking_img,
+      //                               fit: BoxFit.fill,
+      //                             ),
+      //                           ),
+      //                         Flexible(
+      //                           child: Text(
+      //                             state.data[index].cooking_dc,
+      //                             style: TextStyle(
+      //                                 fontSize: 18,
+      //                                 fontWeight: FontWeight.w500
+      //                             ),
+      //                           ),
+      //                         ),
+      //                       ],
+      //                     ),
+      //                     const SizedBox(height: 16.0)
+      //                   ],
+      //                 ),
+      //               ),
+      //             );
+      //           }, childCount: state.data.length),
+      //         ),
+      //       ],
+      //     )
+      // );
       return DefaultLayout(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              RecipeCard(
-                  recipe_nm: state.recipe_nm,
-                  summary: state.summary,
-                  nation_nm: state.nation_nm,
-                  cooking_time: state.cooking_time,
-                  calorie: state.calorie,
-                  imgUrl: state.image_url,
-                  level: state.level_nm,
-                  isDetail: true,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Text(
-                  '조리 방법',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700
-                  ),
-                ),
-              ),
+              Container(),
               renderDetail(state: state)
             ],
           )
@@ -175,33 +161,67 @@ Expanded renderDetail({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                state.data[index].cooking_no.toString() +'.',
-                style: TextStyle(
-                  fontSize: 20
+              index==0
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RecipeCard(
+                          recipe_nm: state.recipe_nm,
+                          summary: state.summary,
+                          nation_nm: state.nation_nm,
+                          cooking_time: state.cooking_time,
+                          calorie: state.calorie,
+                          imgUrl: state.image_url,
+                          level: state.level_nm,
+                          isDetail: true,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Text(
+                            '조리 방법',
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8.0)
+                      ],
+                  )
+                  : Container(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  state.data[index].cooking_no.toString() +'.',
+                  style: TextStyle(
+                    fontSize: 20
+                  ),
                 ),
               ),
               const SizedBox(height: 8.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  if(state.data[index].cooking_img.length>1)
-                    SizedBox(
-                      child: Image.network(
-                        state.data[index].cooking_img,
-                        fit: BoxFit.fill,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    if(state.data[index].cooking_img.length>1)
+                      SizedBox(
+                        child: Image.network(
+                          state.data[index].cooking_img,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    Flexible(
+                      child: Text(
+                          state.data[index].cooking_dc,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500
+                          ),
                       ),
                     ),
-                  Flexible(
-                    child: Text(
-                        state.data[index].cooking_dc,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500
-                        ),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: 16.0)
             ],

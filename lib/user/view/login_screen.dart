@@ -23,6 +23,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final state = ref.watch(userMeProvider);
 
     return DefaultLayout(
+      backgroundColor: Color.fromRGBO(250, 234, 215,12),
       child: Center(
         child: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -34,20 +35,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    'Login',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500
-                    ),
+                  Image.asset(
+                    'asset/img/login/login.png',
                   ),
                   const SizedBox(height: 16.0),
                   CustomTextFormField(
                       onChanged: (String value){
                         username= value;
                       },
-                      hintText: '아이디를 입려하세요',
+                      hintText: '아이디를 입력하세요',
                   ),
                   const SizedBox(height: 8.0),
                   CustomTextFormField(
@@ -64,7 +60,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ref.read(userMeProvider.notifier)
                             .login(username: username,password: password);
                       },
-                      child: Text('로그인')
+                      child: Text('로그인'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.brown.shade400)
+                      ),
                   ),
                   ElevatedButton(
                       onPressed: state is UserModelLoading
@@ -74,6 +73,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             .login(username: username,password: password);
                       },
                       child: Text('회원가입'),
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.brown.shade400)
+                    ),
                   )
                 ],
               ),
