@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:recipe_app/common/view/root_tap.dart';
+import 'package:recipe_app/recipe/view/recipe_screen.dart';
+
+import '../../recipe/view/search_recipe_screen.dart';
 
 class DefaultLayout extends StatelessWidget {
   final Color? backgroundColor;
@@ -16,28 +21,87 @@ class DefaultLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: renderAppBar(),
+      appBar: renderAppBar(context),
       //??는 왼쪽 값이 null 이면 ?? 뒤에 값 적용
       backgroundColor: backgroundColor ?? Colors.white,
       body: child,
 
     );
   }
-  AppBar? renderAppBar(){
+  AppBar? renderAppBar(BuildContext context){
+    String _search='';
+    final _formKey = GlobalKey<FormState>();
     if(title !=null){
       return AppBar(
+        // backgroundColor: Color.fromRGBO(250, 234, 215,12),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Center(
-          child: Text(
-            title!,
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: Colors.black
+        centerTitle: true,
+        title:
+              Image.asset(
+                'asset/img/logo/appbar.png',
+                  width: 150,
+                height: 100,
+              ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: IconButton(
+                onPressed: (){
+                  showModalBottomSheet(
+
+                      context: context,
+                      builder: (context) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20)
+                          )
+                        ),
+                        height: 400,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                              child: Form(
+                                key: _formKey,
+                                child: TextFormField(
+                                    autovalidateMode: AutovalidateMode.always,
+                                    onSaved:(value){
+                                      _search = value as String;
+                                    },
+                                    decoration: InputDecoration(
+                                      counterText: '와구와구',
+                                      hintText: '음식명을 입력해주세요.',
+                                    ),
+                                  ),
+                              ),
+                              ),
+                            ElevatedButton(
+                                onPressed: (){
+                                  _formKey.currentState!.save();
+                                  Navigator.pop(context);
+                                  context.goNamed(
+                                    SearchRecipe.routeName,
+                                    pathParameters: {
+                                      'search': _search
+                                    }
+                                  );
+                                },
+                                child: Text('검색')
+                            )
+                          ],
+                        ),
+                      )
+                  );
+                },
+                icon: Icon(Icons.search,
+                color: Colors.brown,
+                size: 35,)
             ),
           ),
-        ),
+        ],
       );
     }
     return null;
