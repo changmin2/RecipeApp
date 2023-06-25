@@ -8,20 +8,20 @@ import 'package:recipe_app/recipe/provider/recipe_provider.dart';
 import '../../common/component/pagination_list_view.dart';
 import '../component/recipe_card.dart';
 
-class RecipeDetailScreen extends ConsumerStatefulWidget {
-  static get routeName => 'recipeDetail';
+class SearchRecipeDetailScreen extends ConsumerStatefulWidget {
+  static get routeName => 'searchRecipeDetail';
   final int recipe_id;
 
 
-  const RecipeDetailScreen({
+  const SearchRecipeDetailScreen({
     required this.recipe_id,
     Key? key
   }) : super(key: key);
   @override
-  ConsumerState<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
+  ConsumerState<SearchRecipeDetailScreen> createState() => _RecipeDetailScreenState();
 }
 
-class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
+class _RecipeDetailScreenState extends ConsumerState<SearchRecipeDetailScreen> {
 
   @override
   void initState() {

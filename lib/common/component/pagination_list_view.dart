@@ -50,7 +50,6 @@ class _PaginationListViewState<T extends IModelWithId> extends ConsumerState<Pag
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(widget.provider);
-
     //완전 처음 로딩 일때
     if(state is CursorPaginationLoading){
       return Center(
@@ -59,6 +58,11 @@ class _PaginationListViewState<T extends IModelWithId> extends ConsumerState<Pag
     }
 
     if(state is CursorPaginationError){
+      return Center(
+        child: Text(
+          '데이터가 없습니다.'
+        ),
+      );
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -71,7 +75,7 @@ class _PaginationListViewState<T extends IModelWithId> extends ConsumerState<Pag
           ElevatedButton(
               onPressed: (){
                 ref.read(widget.provider.notifier).paginate(
-                    forceRefetch: true
+                    forceRefetch: true,
                 );
               },
               child: Text(

@@ -6,19 +6,23 @@ part 'pagination_params.g.dart';
 class PaginationParams{
   final int? after;
   final int? count;
+  final String? keyword;
 
   const PaginationParams({
     this.after,
-    this.count
+    this.count,
+    this.keyword
   });
 
   PaginationParams copyWith({
     int? after,
     int? count,
+    String? keyword,
   }){
     return PaginationParams(
         after: after ?? this.after,
-        count: count ?? this.count
+        count: count ?? this.count,
+        keyword: keyword ?? this.keyword
     );
   }
 

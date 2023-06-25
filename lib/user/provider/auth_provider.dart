@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/common/view/root_tap.dart';
 import 'package:recipe_app/recipe/view/recipe_detail_screen.dart';
+import 'package:recipe_app/recipe/view/recipe_search_detail_screen.dart';
 import 'package:recipe_app/recipe/view/search_recipe_screen.dart';
 import 'package:recipe_app/user/provider/user_me_provider.dart';
 import 'package:recipe_app/user/repository/user_me_repository.dart';
@@ -48,7 +49,17 @@ class AuthProviderNotifier extends ChangeNotifier{
               name: SearchRecipe.routeName,
               builder: (_,state) => SearchRecipe(
                 search: state.pathParameters['search']!,
-              )
+              ),
+              routes: [
+                GoRoute(
+                    path: 'searchDetail/:rid',
+                    name: SearchRecipeDetailScreen.routeName,
+                    builder: (_,state) => SearchRecipeDetailScreen(
+                      recipe_id: int.parse(state.pathParameters['rid']!),
+                      //rid: 123
+                    )
+                ),
+              ]
           ),
         ]
     ),
