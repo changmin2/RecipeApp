@@ -46,9 +46,10 @@ class DefaultLayout extends ConsumerWidget {
         centerTitle: isDetail ? false : true,
         title: isDetail
             ? Text(
-                isSearch ? '검색어: '+title! : '',
+                isSearch ? '검색어: '+title! : title!,
                 style: TextStyle(
                   color: Colors.brown,
+                  fontWeight: FontWeight.w700
                 ),
               )
             :

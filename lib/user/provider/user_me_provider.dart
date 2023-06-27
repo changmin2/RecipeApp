@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:recipe_app/common/secure_storage/secure_storage.dart';
+import 'package:recipe_app/user/model/duplicate_request.dart';
 import 'package:recipe_app/user/repository/user_me_repository.dart';
 
 import '../../common/const/data.dart';
@@ -33,6 +34,7 @@ class UserMeStateNotifier extends StateNotifier<UserModelBase?>{
     //내정보 가져오기
     getMe();
   }
+
 
   Future<void> getMe() async {
     final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
@@ -83,4 +85,5 @@ class UserMeStateNotifier extends StateNotifier<UserModelBase?>{
     //await storage.delete(key: REFRESH_TOKEN_KEY);
     //await storage.delete(key: ACCESS_TOKEN_KEY);
   }
+
 }

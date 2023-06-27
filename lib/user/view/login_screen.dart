@@ -1,9 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recipe_app/common/component/custom_text_form_field.dart';
 import 'package:recipe_app/common/layout/default_layout.dart';
+import 'package:recipe_app/common/provider/go_router.dart';
+import 'package:recipe_app/recipe/view/recipe_detail_screen.dart';
+import 'package:recipe_app/recipe/view/recipe_search_detail_screen.dart';
 import 'package:recipe_app/user/model/user_model.dart';
+import 'package:recipe_app/user/provider/auth_provider.dart';
 import 'package:recipe_app/user/provider/user_me_provider.dart';
+import 'package:recipe_app/user/view/join_screen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   static String get routeName => 'login';
@@ -66,16 +72,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                   ),
                   ElevatedButton(
-                      onPressed: state is UserModelLoading
-                          ? null
-                          : () async {
-                        ref.read(userMeProvider.notifier)
-                            .login(username: username,password: password);
+                      onPressed: () {
+                        context.goNamed(JoinScreen.routeName);
                       },
                       child: Text('회원가입'),
-                    style: ButtonStyle(
+                      style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.brown.shade400)
-                    ),
+                      ),
                   )
                 ],
               ),

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/common/dio/dio.dart';
+import 'package:recipe_app/user/model/duplicate_request.dart';
 import 'package:retrofit/http.dart';
 import '../../common/const/data.dart';
 import '../model/user_model.dart';
@@ -22,4 +23,9 @@ abstract class UserMeRepository{
     'accessToken':'true'
   })
   Future<UserModel> getMe();
+
+  @POST('/duplicate')
+  Future<bool> duplicate(
+      @Body() DuplicateRequest duplicateRequest
+  );
 }

@@ -9,6 +9,7 @@ import 'package:recipe_app/recipe/view/search_recipe_screen.dart';
 import 'package:recipe_app/user/provider/user_me_provider.dart';
 import 'package:recipe_app/user/repository/user_me_repository.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recipe_app/user/view/join_screen.dart';
 import 'package:recipe_app/user/view/splash_screen.dart';
 import '../model/user_model.dart';
 import '../view/login_screen.dart';
@@ -71,7 +72,14 @@ class AuthProviderNotifier extends ChangeNotifier{
     GoRoute(
         path: '/login',
         name: LoginScreen.routeName,
-        builder: (_,__) => LoginScreen()
+        builder: (_,__) => LoginScreen(),
+        routes: [
+          GoRoute(
+              path: 'join',
+              name: JoinScreen.routeName,
+              builder: (_,__) => JoinScreen()
+          ),
+        ]
     ),
   ];
 
@@ -88,12 +96,20 @@ class AuthProviderNotifier extends ChangeNotifier{
     final UserModelBase? user = ref.read(userMeProvider);
     //로그인 중
     final logginIn = state.location == '/login';
+    //회원가입 페이지 이동중인지
+    final joinIn = state.location == '/login/join';
     //유저 정보가 없는데
     //로그인중이면 그대로 로그인 페이지에 두고
     //만약 로그인중이 아니라면 로그인 페이지로 이동
-    if(user == null){
+    if(user == null && !joinIn){
       return logginIn ? null : '/login';
     }
+
+    //회원가입 페이지로 이동중이라면
+    if(user==null && joinIn){
+      return '/login/join';
+    }
+
 
     //user가 null이 아님
 
