@@ -4,6 +4,7 @@ import 'package:recipe_app/common/dio/dio.dart';
 import 'package:recipe_app/user/model/duplicate_request.dart';
 import 'package:retrofit/http.dart';
 import '../../common/const/data.dart';
+import '../model/join_request.dart';
 import '../model/user_model.dart';
 
 part 'user_me_repository.g.dart';
@@ -27,5 +28,10 @@ abstract class UserMeRepository{
   @POST('/duplicate')
   Future<bool> duplicate(
       @Body() DuplicateRequest duplicateRequest
+  );
+
+  @POST('/join')
+  Future<void> join(
+      @Body() JoinRequest joinRequest
   );
 }

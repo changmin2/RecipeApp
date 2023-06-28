@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/common/layout/default_layout.dart';
 import 'package:recipe_app/user/model/duplicate_request.dart';
+import 'package:recipe_app/user/model/join_request.dart';
 import 'package:recipe_app/user/repository/user_me_repository.dart';
 
 import '../../common/component/custom_text_form_field.dart';
@@ -51,6 +52,22 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                         onPressed: () async {
                           DuplicateRequest du = new DuplicateRequest(email: username);
                           dulicateCheck = await ref.read(userMeRepositoryProvider).duplicate(du);
+                          if(!dulicateCheck){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('중복된 아이디입니다!'),
+                                  duration: Duration(seconds: 1),
+                                )
+                            );
+                          }else{
+                            await ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('중복확인 완료'),
+                                  duration: Duration(seconds: 1),
+                                )
+                            );
+                          }
+
                         },
                         child: Text('중복확인'),
                         style: ButtonStyle(
@@ -74,6 +91,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                         }
                       },
                       onChanged: (String value){
+                        dulicateCheck = false;
                         username= value;
                       },
                       hintText: '3~15자 영문/숫자 조합으로 입력',
@@ -113,9 +131,28 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: (){
-                    print(dulicateCheck.toString() +"중복확인 결과");
-                    if(_idFormKey.currentState!.validate() && _psFormKey.currentState!.validate()){
+                  onPressed: () async {
+                    if(!dulicateCheck){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('아이디 중복확인을 하세요!'),
+                            duration: Duration(seconds: 3),
+                          )
+                      );
+                    }
+                    if(_idFormKey.currentState!.validate() && _psFormKey.currentState!.validate()&&dulicateCheck){
+                      JoinRequest request = new JoinRequest(memberId: username, password: password);
+                      await ref.read(userMeRepositoryProvider).join(request);
+                      await ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('회원가입 완료'),
+                            duration: Duration(seconds: 1),
+                          )
+                      );
+                      await Future.delayed(const Duration(milliseconds: 1000), () {
+                        print('Hello, world');
+                      });
+                      Navigator.pop(context);
                     }
                   },
                   child: Text('가입'),
