@@ -4,6 +4,8 @@ import 'package:recipe_app/common/dio/dio.dart';
 import 'package:recipe_app/user/model/duplicate_request.dart';
 import 'package:retrofit/http.dart';
 import '../../common/const/data.dart';
+import '../../common/model/cursor_pagination_model.dart';
+import '../../recipe/model/recipe_model.dart';
 import '../model/join_request.dart';
 import '../model/user_model.dart';
 

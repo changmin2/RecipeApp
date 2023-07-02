@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:recipe_app/common/view/root_tap.dart';
 import 'package:recipe_app/recipe/provider/search_recipe_provider.dart';
 import 'package:recipe_app/recipe/view/recipe_screen.dart';
+import 'package:recipe_app/user/provider/clip_provider.dart';
 
 import '../../recipe/view/search_recipe_screen.dart';
 
@@ -14,6 +15,10 @@ class DefaultLayout extends ConsumerWidget {
   final Widget? bottomNavagtionBar;
   final bool isDetail;
   final bool isSearch;
+  final bool isClip;
+  final bool clipCheck;
+  final int recipe_id;
+  final bool clipScreen;
 
   const DefaultLayout({
     required this.child,
@@ -22,15 +27,60 @@ class DefaultLayout extends ConsumerWidget {
     this.bottomNavagtionBar,
     this.isDetail=false,
     this.isSearch=false,
+    this.isClip=false,
+    this.clipCheck=false,
+    this.recipe_id=0,
+    this.clipScreen=false,
     Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
+    final state =ref.watch(clipProvider.notifier);
+    final clipState = ref.watch(clipeDetailProvider(recipe_id));
+    print(clipState?.summary.toString());
     return Scaffold(
-      appBar: renderAppBar(context,ref),
+      appBar: isClip
+          ?
+             AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            centerTitle: isDetail ? false : true,
+               leading: isDetail
+                   ? IconButton(
+                 onPressed: (){Navigator.pop(context);},
+                 icon: Icon(Icons.arrow_back),
+                 color: Colors.brown,
+                 alignment: Alignment.centerLeft,
+               )
+                   : null,
+            actions: [
+              Padding(
+                padding: EdgeInsets.only(right: 20),
+                child: IconButton(
+                  onPressed: (){
+                    clipState ==null ?
+                    state.addClip(id: recipe_id) : state.deleteClip(id: recipe_id);
+                  },
+                  icon: Icon(
+                      clipState==null ?
+                      Icons.label_important_outline
+                      : Icons.label_important,
+                      color: Colors.red,
+                      size: 35,
+                  )
+                  ,
+                  // Icons.label_important_outline,
+                  // color: Colors.red,
+                  // size: 35,
+                ),
+              )
+            ],
+          )
+          :renderAppBar(context,ref),
       //??는 왼쪽 값이 null 이면 ?? 뒤에 값 적용
       backgroundColor: backgroundColor ?? Colors.white,
       body: child,
+      bottomNavigationBar: bottomNavagtionBar,
 
     );
   }
@@ -38,6 +88,21 @@ class DefaultLayout extends ConsumerWidget {
     String _search='';
     final _formKey = GlobalKey<FormState>();
     ref.read(searchRecipeProvider(_search).notifier).init();
+    if(clipScreen){
+      return AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          title!,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.w700
+          ),
+        ),
+      );
+    }
     if(title !=null){
       return AppBar(
         // backgroundColor: Color.fromRGBO(250, 234, 215,12),
@@ -105,23 +170,31 @@ class DefaultLayout extends ConsumerWidget {
                                       onSaved:(value){
                                         _search = value as String;
                                       },
+                                      validator: (value){
+                                        if(value!.length<1){
+                                          return "검색어를 입력해주세요.";
+                                        }
+                                      },
                                       decoration: InputDecoration(
                                         counterText: '와구와구',
                                         hintText: '음식명을 입력해주세요.',
                                       ),
                                     ),
+
                                 ),
                                 ),
                               ElevatedButton(
                                   onPressed: (){
-                                    _formKey.currentState!.save();
-                                    Navigator.pop(context);
-                                    context.goNamed(
-                                      SearchRecipe.routeName,
-                                      pathParameters: {
-                                        'search': _search
-                                      }
-                                    );
+                                    //_formKey.currentState!.save();
+                                    if(_formKey.currentState!.validate()){
+                                      Navigator.pop(context);
+                                      context.goNamed(
+                                          SearchRecipe.routeName,
+                                          pathParameters: {
+                                            'search': _search
+                                          }
+                                      );
+                                    }
                                   },
                                   child: Text('검색'),
                                   style: ElevatedButton.styleFrom(

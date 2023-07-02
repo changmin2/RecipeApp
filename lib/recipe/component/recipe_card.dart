@@ -29,7 +29,8 @@ class RecipeCard extends StatelessWidget {
     required this.imgUrl,
     required this.level,
     this.isDetail=false,
-    Key? key}) : super(key: key);
+    Key? key
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

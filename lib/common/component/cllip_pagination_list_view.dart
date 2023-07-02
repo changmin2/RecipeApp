@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_app/common/provider/clip_pagination_provider.dart';
+import 'package:recipe_app/common/repository/base_pagination_repository.dart';
 
 import '../model/cursor_pagination_model.dart';
 import '../model/model_with_id.dart';
@@ -9,21 +11,21 @@ import '../utils/pagination_utils.dart';
 typedef PaginationWidgetBuilder<T extends IModelWithId> =
 Widget Function(BuildContext context, int index,T model);
 
-class PaginationListView<T extends IModelWithId> extends ConsumerStatefulWidget {
-  final StateNotifierProvider<PaginationProvider,CursorPaginationBase> provider;
+class ClipPaginationListView<T extends IModelWithId> extends ConsumerStatefulWidget {
+  final StateNotifierProvider<ClipPaginationProvider,CursorPaginationBase> provider;
   final PaginationWidgetBuilder<T> itemBuilder;
 
 
-  const PaginationListView({
+  const ClipPaginationListView({
     required this.provider,
     required this.itemBuilder,
     Key? key}) : super(key: key);
 
   @override
-  ConsumerState<PaginationListView> createState() => _PaginationListViewState<T>();
+  ConsumerState<ClipPaginationListView> createState() => _PaginationListViewState<T>();
 }
 
-class _PaginationListViewState<T extends IModelWithId> extends ConsumerState<PaginationListView> {
+class _PaginationListViewState<T extends IModelWithId> extends ConsumerState<ClipPaginationListView> {
   final ScrollController controller = ScrollController();
 
   @override
@@ -33,7 +35,7 @@ class _PaginationListViewState<T extends IModelWithId> extends ConsumerState<Pag
   }
 
   void listener(){
-    PaginationUtils.paginate(
+    ClipPaginationUtils.paginate(
         controller: controller,
         provider: ref.read(widget.provider.notifier)
     );
@@ -66,7 +68,6 @@ class _PaginationListViewState<T extends IModelWithId> extends ConsumerState<Pag
     }
 
     final cp = state as CursorPagination<T>;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child:  ListView.separated(

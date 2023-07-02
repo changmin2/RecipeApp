@@ -26,6 +26,9 @@ RecipeDetailModel _$RecipeDetailModelFromJson(Map<String, dynamic> json) =>
       data: (json['data'] as List<dynamic>)
           .map((e) => DetailDto.fromJson(e as Map<String, dynamic>))
           .toList(),
+      ingredients: (json['ingredients'] as List<dynamic>)
+          .map((e) => IngredientDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$RecipeDetailModelToJson(RecipeDetailModel instance) =>
@@ -46,6 +49,7 @@ Map<String, dynamic> _$RecipeDetailModelToJson(RecipeDetailModel instance) =>
       'image_url': instance.image_url,
       'detail_url': instance.detail_url,
       'data': instance.data,
+      'ingredients': instance.ingredients,
     };
 
 DetailDto _$DetailDtoFromJson(Map<String, dynamic> json) => DetailDto(
@@ -64,4 +68,24 @@ Map<String, dynamic> _$DetailDtoToJson(DetailDto instance) => <String, dynamic>{
       'cooking_dc': instance.cooking_dc,
       'cooking_img': instance.cooking_img,
       'step_tip': instance.step_tip,
+    };
+
+IngredientDto _$IngredientDtoFromJson(Map<String, dynamic> json) =>
+    IngredientDto(
+      recipe_no: json['recipe_no'] as int,
+      recipe_code: json['recipe_code'] as int,
+      ingredientName: json['ingredientName'] as String,
+      quantity: json['quantity'] as String,
+      ingredientCode: json['ingredientCode'] as int,
+      ingredientType: json['ingredientType'] as String,
+    );
+
+Map<String, dynamic> _$IngredientDtoToJson(IngredientDto instance) =>
+    <String, dynamic>{
+      'recipe_no': instance.recipe_no,
+      'recipe_code': instance.recipe_code,
+      'ingredientName': instance.ingredientName,
+      'quantity': instance.quantity,
+      'ingredientCode': instance.ingredientCode,
+      'ingredientType': instance.ingredientType,
     };

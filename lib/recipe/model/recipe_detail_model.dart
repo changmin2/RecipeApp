@@ -7,6 +7,7 @@ part 'recipe_detail_model.g.dart';
 @JsonSerializable()
 class RecipeDetailModel extends RecipeModel{
   final List<DetailDto> data;
+  final List<IngredientDto> ingredients;
 
   RecipeDetailModel({
     required super.recipe_id,
@@ -24,7 +25,8 @@ class RecipeDetailModel extends RecipeModel{
     required super.pc_nm,
     required super.image_url,
     required super.detail_url,
-    required this.data
+    required this.data,
+    required this.ingredients,
   });
 
   factory RecipeDetailModel.fromJson(Map<String,dynamic> json)
@@ -53,4 +55,26 @@ class DetailDto{
 
   factory DetailDto.fromJson(Map<String,dynamic> json)
   => _$DetailDtoFromJson(json);
+}
+
+@JsonSerializable()
+class IngredientDto{
+  final int recipe_no;
+  final int recipe_code;
+  final String ingredientName;
+  final String quantity;
+  final int ingredientCode;
+  final String ingredientType;
+
+  IngredientDto({
+    required this.recipe_no,
+    required this.recipe_code,
+    required this.ingredientName,
+    required this.quantity,
+    required this.ingredientCode,
+    required this.ingredientType
+  });
+
+  factory IngredientDto.fromJson(Map<String,dynamic> json)
+  => _$IngredientDtoFromJson(json);
 }

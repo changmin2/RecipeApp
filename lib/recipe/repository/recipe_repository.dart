@@ -43,5 +43,28 @@ abstract class RecipeRepository implements IBasePaginationRepository<RecipeModel
     @Path() required int id,
   });
 
+  @GET('/clip')
+  @Headers({
+    'accessToken':'true'
+  })
+  Future<CursorPagination<RecipeModel>> getClips({
+    @Queries() PaginationParams? paginationParams = const PaginationParams(),
+  });
+
+  @GET('/addClip/{id}')
+  @Headers({
+    'accessToken':'true'
+  })
+  Future<void> addClip({
+    @Path() required int id
+  });
+
+  @GET('/deleteClip/{id}')
+  @Headers({
+    'accessToken':'true'
+  })
+  Future<void> deleteClip({
+    @Path() required int id
+  });
 
 }

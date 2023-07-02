@@ -6,6 +6,7 @@ import 'package:recipe_app/recipe/model/recipe_detail_model.dart';
 import 'package:recipe_app/recipe/provider/recipe_provider.dart';
 
 import '../../common/component/pagination_list_view.dart';
+import '../component/ingredient_card.dart';
 import '../component/recipe_card.dart';
 
 class SearchRecipeDetailScreen extends ConsumerStatefulWidget {
@@ -44,6 +45,8 @@ class _RecipeDetailScreenState extends ConsumerState<SearchRecipeDetailScreen> {
       return DefaultLayout(
           title: "",
           isDetail: true,
+          isClip: true,
+          recipe_id: widget.recipe_id,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -88,6 +91,17 @@ Expanded renderDetail({
                           level: state.level_nm,
                           isDetail: true,
                         ),
+                        index ==0 ? Column(
+                            children: [
+                              IngredientCard(
+                                ingredients: state.ingredients,
+                              ),
+                              const SizedBox(height: 8.0),
+                              state.ingredients.length >0 ? Divider(color: Colors.deepOrangeAccent)
+                                  : Container(),
+                              const SizedBox(height: 8.0)
+                            ]
+                        ) : Container(),
                         Padding(
                           padding: const EdgeInsets.only(left: 16),
                           child: Text(

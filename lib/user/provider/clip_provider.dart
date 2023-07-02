@@ -1,0 +1,140 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:collection/collection.dart';
+import 'package:recipe_app/common/provider/clip_pagination_provider.dart';
+import 'package:recipe_app/recipe/model/recipe_model.dart';
+import 'package:recipe_app/recipe/repository/recipe_repository.dart';
+
+import '../../common/model/cursor_pagination_model.dart';
+import '../../common/provider/pagination_provider.dart';
+
+final clipeDetailProvider =
+Provider.family<RecipeModel?,int>((ref,id) {
+  final state = ref.watch(clipProvider);
+
+  if(state is! CursorPagination){
+    return null;
+  }
+
+  return state.data.firstWhereOrNull((element) => element.recipe_id == id);
+
+});
+/*
+The argument type 'StateNotifierProvider<ClipStateNotifier, CursorPaginationBase>'
+ can't be assigned to the parameter type
+ 'StateNotifierProvider<PaginationProvider<IModelWithId,
+ IBasePaginationRepository<IModelWithId>>,
+  CursorPaginationBase>'. (Documentation)
+ */
+final clipProvider = StateNotifierProvider<ClipStateNotifier,CursorPaginationBase>(
+        (ref) {
+      final repository = ref.watch(recipeRepositoryProvider);
+
+      final notifier = ClipStateNotifier(repository: repository);
+
+      return notifier;
+    }
+);
+
+class ClipStateNotifier extends ClipPaginationProvider<RecipeModel,RecipeRepository>{
+
+  ClipStateNotifier({
+    required super.repository
+  });
+
+
+  void addClip({
+    required int id,
+  })async{
+    if(state is! CursorPagination){
+      await this.paginate();
+    }
+
+    // state가 CursorPagination이 아닐때 그냥 리턴
+    if(state is! CursorPagination){
+      return;
+    }
+
+
+    //원래는 RestaurantModel이지만
+    final pState = state as CursorPagination;
+
+    final resp = repository.addClip(id: id);
+    final resp2 = await repository.getRestaurantDetail(id: id);
+
+    if(pState.data.where((e) => e.recipe_id==id).isEmpty){
+      state = pState.copyWith(
+          data: <RecipeModel>[
+            ...pState.data,
+            resp2
+          ]
+      );
+
+    }else{
+      state = pState.copyWith(
+          data: pState.data.map<RecipeModel>((e) => e.recipe_id==id ? resp2 : e).toList()
+      );
+    }
+  }
+
+  void deleteClip({
+    required int id,
+  })async{
+
+    if(state is! CursorPagination){
+      await this.paginate();
+    }
+
+    // state가 CursorPagination이 아닐때 그냥 리턴
+    if(state is! CursorPagination){
+      return;
+    }
+
+    final pState = state as CursorPagination;
+
+    final resp = repository.deleteClip(id:id);
+
+    state = pState.copyWith(
+      data: pState.data.where((element) => element.recipe_id != id).toList()
+      //data: pState.data.map<RecipeModel>((e) => e.recipe_id!=id ? e: ).toList()
+    );
+    print(state.toString()+"delete결과");
+  }
+
+  void getDetail({
+    required int id,
+  })async{
+    // 만약에 아직 데이터가 하나도 없는 상태라면 (CursorPagination이 아니라면)
+    // 데이터를 가져오는 시도를 한다.
+    if(state is! CursorPagination){
+      await this.paginate();
+    }
+
+    // state가 CursorPagination이 아닐때 그냥 리턴
+    if(state is! CursorPagination){
+      return;
+    }
+
+
+    //원래는 RestaurantModel이지만
+    final pState = state as CursorPagination;
+    //Detail은 RestaurantModel을 상속받은 것이므로 교체해준다.
+    final resp = await repository.getRestaurantDetail(id: id);
+    //레스토랑모델이 3개있음
+    //요청 10번째 모델
+    // 데이터가 없음
+    // 캐시의 끝에다가 데이터를 추가
+    if(pState.data.where((e) => e.recipe_id==id).isEmpty){
+      state = pState.copyWith(
+          data: <RecipeModel>[
+            ...pState.data,
+            resp
+          ]
+      );
+
+    }else{
+      state = pState.copyWith(
+          data: pState.data.map<RecipeModel>((e) => e.recipe_id==id ? resp : e).toList()
+      );
+    }
+  }
+}
