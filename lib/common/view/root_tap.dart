@@ -68,7 +68,7 @@ class _RootTabState extends ConsumerState<RootTab> with SingleTickerProviderStat
               label: '홈'
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.label_rounded),
+              icon: Icon(Icons.label_important),
               label: '즐겨찾기'
           ),
           BottomNavigationBarItem(

@@ -39,6 +39,9 @@ class UserMeStateNotifier extends StateNotifier<UserModelBase?>{
   Future<void> getMe() async {
     final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
     final accessToken = await storage.read(key: ACCESS_TOKEN_KEY);
+    //spalsh화면을 2초 보여주기 위한 스탑워치
+    Stopwatch stopwatch = new Stopwatch();
+    stopwatch.start();
 
     if(refreshToken == null || accessToken == null){
       state = null;
@@ -46,8 +49,14 @@ class UserMeStateNotifier extends StateNotifier<UserModelBase?>{
     }
 
     final resp = await userMeRepository.getMe();
-
+    Duration get = stopwatch.elapsed;
+    stopwatch.stop();
+    if(get.inMilliseconds<2000){
+      await Future.delayed(Duration(milliseconds: (2000-get.inMilliseconds)));
+    }
     state = resp;
+
+
   }
   Future<UserModelBase> login({
     required String username,
