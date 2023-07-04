@@ -44,6 +44,7 @@ class UserMeStateNotifier extends StateNotifier<UserModelBase?>{
     stopwatch.start();
 
     if(refreshToken == null || accessToken == null){
+      await Future.delayed(Duration(milliseconds: (1800)));
       state = null;
       return;
     }

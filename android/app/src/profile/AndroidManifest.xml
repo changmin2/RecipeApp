@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.recipe_app">
+    package="com.gimHaeChangMin.recipeApp">
     <application
         android:label="와구와구">
 

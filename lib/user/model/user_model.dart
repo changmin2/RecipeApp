@@ -24,6 +24,7 @@ class UserModel extends UserModelBase{
     required this.password
   });
 
+
   factory UserModel.fromJson(Map<String,dynamic> json)
   => _$UserModelFromJson(json);
 

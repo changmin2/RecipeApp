@@ -21,7 +21,7 @@ class ClipPaginationUtils{
     required ScrollController controller,
     required ClipPaginationProvider provider,
   }){
-    if(controller.offset > controller.position.maxScrollExtent - 300){
+    if(controller.offset > controller.position.maxScrollExtent - 150){
       provider.paginate(
         fetchMore: true,
       );

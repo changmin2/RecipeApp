@@ -93,13 +93,9 @@ class DefaultLayout extends ConsumerWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
-        title: Text(
-          title!,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24,
-            fontWeight: FontWeight.w700
-          ),
+        title:  Image.asset(
+          'asset/img/logo/clipRecipe.png',
+          width: 200,
         ),
       );
     }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_app/common/component/cllip_pagination_list_view.dart';
+import 'package:recipe_app/recipe/component/clip_card.dart';
 import 'package:recipe_app/user/provider/clip_provider.dart';
 
 import '../../common/component/pagination_list_view.dart';
@@ -27,14 +28,15 @@ class ClipScreen extends ConsumerWidget {
                       'rid':recipe.recipe_id.toString()
                     });
               },
-              child: RecipeCard(
+              child: ClipCard(
                   recipe_nm: recipe.recipe_nm,
                   summary: recipe.summary,
                   nation_nm: recipe.nation_nm,
                   cooking_time: recipe.cooking_time,
                   calorie: recipe.calorie,
                   imgUrl: recipe.image_url,
-                  level: recipe.level_nm
+                  level: recipe.level_nm,
+                  recipe_id: recipe.recipe_id,
               ),
             );
           }),
