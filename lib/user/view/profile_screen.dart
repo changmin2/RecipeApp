@@ -48,7 +48,7 @@ class ProfiesScreen extends ConsumerWidget {
           Text(
             'dlckdals9467@naver.com'
           ),
-          const SizedBox(height: 100),
+          const SizedBox(height: 80),
           ElevatedButton(
             onPressed: (){
               ref.read(userMeProvider.notifier).logout();
@@ -60,7 +60,25 @@ class ProfiesScreen extends ConsumerWidget {
                 backgroundColor: Colors.brown
             ),
           ),
-          const SizedBox(height: 46),
+          ElevatedButton(
+            onPressed: () async{
+              await ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('회원탈퇴 완료'),
+                    duration: Duration(seconds: 3),
+                  )
+              );
+              ref.read(userMeProvider.notifier).withDrawl();
+
+            },
+            child: Text(
+                '회원탈퇴'
+            ),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.brown
+            ),
+          ),
+          const SizedBox(height: 26),
           Text(
             '앱 버전 1.0.0'
           ),

@@ -35,4 +35,15 @@ class AuthRepository{
 
     return LoginResponse.fromJson(resp.data);
   }
+
+  Future<void> withDrawl()async {
+    await dio.get(
+      '$baseUrl/withDrawal',
+      options: Options(
+        headers: {
+          'accessToken':'true'
+        }
+      )
+    );
+  }
 }

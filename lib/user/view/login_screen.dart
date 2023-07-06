@@ -65,6 +65,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       : () async {
                         ref.read(userMeProvider.notifier)
                             .login(username: username,password: password);
+                        final state = ref.read(userMeProvider);
+                        print(state);
                       },
                       child: Text('로그인'),
                       style: ButtonStyle(

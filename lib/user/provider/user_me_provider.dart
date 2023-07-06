@@ -77,7 +77,6 @@ class UserMeStateNotifier extends StateNotifier<UserModelBase?>{
 
       return userResponse;
     }catch(e){
-
       state = UserModelError(message: '로그인에 실패했습니다.');
 
       return Future.value(state);
@@ -94,6 +93,16 @@ class UserMeStateNotifier extends StateNotifier<UserModelBase?>{
 
     //await storage.delete(key: REFRESH_TOKEN_KEY);
     //await storage.delete(key: ACCESS_TOKEN_KEY);
+  }
+
+  Future<void> withDrawl() async{
+    await authRepository.withDrawl();
+    state = null;
+
+    Future.wait([
+      storage.delete(key: REFRESH_TOKEN_KEY),
+      storage.delete(key: ACCESS_TOKEN_KEY)
+    ]);
   }
 
 }

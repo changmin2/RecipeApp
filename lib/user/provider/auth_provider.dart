@@ -104,7 +104,6 @@ class AuthProviderNotifier extends ChangeNotifier{
     if(user == null && !joinIn){
       return logginIn ? null : '/login';
     }
-
     //회원가입 페이지로 이동중이라면
     if(user==null && joinIn){
       return '/login/join';
@@ -123,6 +122,9 @@ class AuthProviderNotifier extends ChangeNotifier{
 
     //UserModelError
     if(user is UserModelError){
+      if(joinIn){
+        return '/login/join';
+      }
       return logginIn ? null : '/login';
     }
 
