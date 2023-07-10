@@ -51,7 +51,55 @@ class ProfiesScreen extends ConsumerWidget {
           const SizedBox(height: 80),
           ElevatedButton(
             onPressed: (){
-              ref.read(userMeProvider.notifier).logout();
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context){
+                    return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0)
+                      ),
+                      title: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          new Text("로그아웃")
+                        ],
+                      ),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text(
+                              "정말 로그아웃 하시겠습니까?"
+                          )
+                        ],
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                            onPressed: (){
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                                '취소'
+                            )
+                        ),
+                        TextButton(
+                            onPressed: () async {
+                              await ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('로그아웃 완료'),
+                                    duration: Duration(seconds: 3),
+                                  )
+                              );
+                              await ref.read(userMeProvider.notifier).logout();
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                                '확인'
+                            )
+                        )
+                      ],
+                    );
+                  }
+              );
             },
             child: Text(
                 '로그아웃'
@@ -61,14 +109,56 @@ class ProfiesScreen extends ConsumerWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () async{
-              await ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('회원탈퇴 완료'),
-                    duration: Duration(seconds: 3),
-                  )
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context){
+                    return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)
+                      ),
+                      title: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          new Text("회원탈퇴")
+                        ],
+                      ),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text(
+                            "정말 회원탈퇴를 하시겠습니까?"
+                          )
+                        ],
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                            onPressed: (){
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                                '취소'
+                            )
+                        ),
+                        TextButton(
+                            onPressed: () async {
+                              await ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('회원탈퇴 완료'),
+                                    duration: Duration(seconds: 3),
+                                  )
+                              );
+                              await ref.read(userMeProvider.notifier).withDrawl();
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              '확인'
+                            )
+                        )
+                      ],
+                    );
+                  }
               );
-              ref.read(userMeProvider.notifier).withDrawl();
 
             },
             child: Text(

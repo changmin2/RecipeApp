@@ -50,24 +50,25 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                     ),
                     ElevatedButton(
                         onPressed: () async {
-                          DuplicateRequest du = new DuplicateRequest(email: username);
-                          dulicateCheck = await ref.read(userMeRepositoryProvider).duplicate(du);
-                          if(!dulicateCheck){
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('중복된 아이디입니다!'),
-                                  duration: Duration(seconds: 1),
-                                )
-                            );
-                          }else{
-                            await ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('중복확인 완료'),
-                                  duration: Duration(seconds: 1),
-                                )
-                            );
+                          if(_idFormKey.currentState!.validate()){
+                            DuplicateRequest du = new DuplicateRequest(email: username);
+                            dulicateCheck = await ref.read(userMeRepositoryProvider).duplicate(du);
+                            if(!dulicateCheck){
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('중복된 아이디입니다!'),
+                                    duration: Duration(seconds: 1),
+                                  )
+                              );
+                            }else{
+                              await ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('중복확인 완료'),
+                                    duration: Duration(seconds: 1),
+                                  )
+                              );
+                            }
                           }
-
                         },
                         child: Text('중복확인'),
                         style: ButtonStyle(
@@ -113,6 +114,7 @@ class _JoinScreenState extends ConsumerState<JoinScreen> {
                 Form(
                   key: _psFormKey,
                   child: CustomTextFormField(
+                    obscureText: true,
                     validator: (value){
                       if(value.length<3){
                         return "비밀번호를 3글자 이상 입력해주세요.";

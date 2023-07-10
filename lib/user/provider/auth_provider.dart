@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/common/view/root_tap.dart';
 import 'package:recipe_app/recipe/view/recipe_detail_screen.dart';
@@ -92,7 +93,7 @@ class AuthProviderNotifier extends ChangeNotifier{
   //토큰이 존재하는지 확인하고
   //로그인 스크린으로 보내줄지
   //홈스크린으로 보내줄지 확인하는 과정이 필요
-  FutureOr<String?> redirectLogic(BuildContext context,GoRouterState state){
+  FutureOr<String?> redirectLogic(BuildContext context,GoRouterState state)  {
     final UserModelBase? user = ref.read(userMeProvider);
     //로그인 중
     final logginIn = state.location == '/login';
