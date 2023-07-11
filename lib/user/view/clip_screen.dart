@@ -8,6 +8,7 @@ import 'package:recipe_app/user/provider/clip_provider.dart';
 import '../../common/component/pagination_list_view.dart';
 import '../../common/layout/default_layout.dart';
 import '../../recipe/component/recipe_card.dart';
+import '../../recipe/view/category_recipe_detail_screen.dart';
 import '../../recipe/view/recipe_detail_screen.dart';
 
 class ClipScreen extends ConsumerWidget {
@@ -23,7 +24,7 @@ class ClipScreen extends ConsumerWidget {
           itemBuilder: <RecipeModel>(_,index,recipe){
             return GestureDetector(
               onTap: (){
-                context.goNamed(RecipeDetailScreen.routeName,
+                context.goNamed(CategoryRecipeDetailScreen.routeName,
                     pathParameters: {
                       'rid':recipe.recipe_id.toString()
                     });

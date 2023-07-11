@@ -8,11 +8,15 @@ import '../repository/base_pagination_repository.dart';
 class PaginationProvider<T extends IModelWithId,U extends IBasePaginationRepository<T>> extends StateNotifier<CursorPaginationBase>{
   final U repository;
   String? keyword;
+  String? nm;
+  String? level;
   PaginationProvider({
     required this.repository,
     this.keyword="",
+    this.nm="",
+    this.level=""
   }): super(CursorPaginationLoading()){
-    paginate(keyword: keyword!);
+    paginate(keyword: keyword!,nm: nm!,level: level!);
   }
   //상추 치커리 오징어 초침무
   Future<void> paginate({
@@ -25,6 +29,10 @@ class PaginationProvider<T extends IModelWithId,U extends IBasePaginationReposit
     bool forceRefetch = false,
     //검색어
     String keyword ="",
+    //종류
+    String nm="",
+    //난이도
+    String level=""
   }) async{
     try{
       // 5가지 가능성
@@ -61,7 +69,9 @@ class PaginationProvider<T extends IModelWithId,U extends IBasePaginationReposit
       // PaginationParams 생성
       PaginationParams paginationParams = PaginationParams(
         count: fetchCount,
-        keyword: this.keyword
+        keyword: this.keyword,
+        nm:  this.nm,
+        level: this.level
       );
 
       //fetchMore
@@ -76,7 +86,9 @@ class PaginationProvider<T extends IModelWithId,U extends IBasePaginationReposit
         print(this.keyword.toString()+"키워드");
         paginationParams = paginationParams.copyWith(
             after: pState.data.last.recipe_id,
-            keyword: this.keyword
+            keyword: this.keyword,
+            level: this.level,
+            nm: this.nm
         );
       }
       //데이터를 처음부터 가져오는 상황
@@ -100,6 +112,7 @@ class PaginationProvider<T extends IModelWithId,U extends IBasePaginationReposit
       final resp = await repository.paginate(
           paginationParams: paginationParams
       );
+
 
       if(state is CursorPaginationFetchingMore){
         final pState = state as CursorPaginationFetchingMore<T>;

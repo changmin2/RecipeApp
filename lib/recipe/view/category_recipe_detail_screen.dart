@@ -3,27 +3,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/common/layout/default_layout.dart';
 import 'package:recipe_app/common/provider/go_router.dart';
 import 'package:recipe_app/recipe/model/recipe_detail_model.dart';
+import 'package:recipe_app/recipe/provider/category_recipe_provider.dart';
 import 'package:recipe_app/recipe/provider/recipe_provider.dart';
 
 import '../../common/component/pagination_list_view.dart';
 import '../component/ingredient_card.dart';
 import '../component/recipe_card.dart';
-import '../provider/category_recipe_provider.dart';
 
-class SearchRecipeDetailScreen extends ConsumerStatefulWidget {
-  static get routeName => 'searchRecipeDetail';
+class CategoryRecipeDetailScreen extends ConsumerStatefulWidget {
+  static get routeName => 'categoryDetail';
   final int recipe_id;
 
 
-  const SearchRecipeDetailScreen({
+  const CategoryRecipeDetailScreen({
     required this.recipe_id,
     Key? key
   }) : super(key: key);
   @override
-  ConsumerState<SearchRecipeDetailScreen> createState() => _RecipeDetailScreenState();
+  ConsumerState<CategoryRecipeDetailScreen> createState() => _RecipeDetailScreenState();
 }
 
-class _RecipeDetailScreenState extends ConsumerState<SearchRecipeDetailScreen> {
+class _RecipeDetailScreenState extends ConsumerState<CategoryRecipeDetailScreen> {
 
   @override
   void initState() {
@@ -80,49 +80,50 @@ Expanded renderDetail({
             children: [
               index==0
                   ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RecipeCard(
+                    recipe_nm: state.recipe_nm,
+                    summary: state.summary,
+                    nation_nm: state.nation_nm,
+                    cooking_time: state.cooking_time,
+                    calorie: state.calorie,
+                    imgUrl: state.image_url,
+                    level: state.level_nm,
+                    isDetail: true,
+                  ),
+                  index ==0 ? Column(
                       children: [
-                        RecipeCard(
-                          recipe_nm: state.recipe_nm,
-                          summary: state.summary,
-                          nation_nm: state.nation_nm,
-                          cooking_time: state.cooking_time,
-                          calorie: state.calorie,
-                          imgUrl: state.image_url,
-                          level: state.level_nm,
-                          isDetail: true,
+                        IngredientCard(
+                          ingredients: state.ingredients,
                         ),
-                        index ==0 ? Column(
-                            children: [
-                              IngredientCard(
-                                ingredients: state.ingredients,
-                              ),
-                              const SizedBox(height: 8.0),
-                              state.ingredients.length >0 ? Divider(color: Colors.deepOrangeAccent)
-                                  : Container(),
-                              const SizedBox(height: 8.0)
-                            ]
-                        ) : Container(),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16),
-                          child: Text(
-                            '조리 방법',
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w700
-                            ),
-                          ),
-                        ),
+                        const SizedBox(height: 8.0),
+                        state.ingredients.length >0 ? Divider(color: Colors.deepOrangeAccent)
+                            : Container(),
                         const SizedBox(height: 8.0)
-                      ],
-                  )
+                      ]
+                  ) : Container(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Text(
+                      '조리 방법',
+                      style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8.0),
+                ],
+              )
                   : Container(),
+
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   state.data[index].cooking_no.toString() +'.',
                   style: TextStyle(
-                    fontSize: 20
+                      fontSize: 20
                   ),
                 ),
               ),
@@ -142,11 +143,11 @@ Expanded renderDetail({
                       ),
                     Flexible(
                       child: Text(
-                          state.data[index].cooking_dc,
-                          style: TextStyle(
+                        state.data[index].cooking_dc,
+                        style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500
-                          ),
+                        ),
                       ),
                     ),
                   ],

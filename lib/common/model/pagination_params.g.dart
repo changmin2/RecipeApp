@@ -11,6 +11,8 @@ PaginationParams _$PaginationParamsFromJson(Map<String, dynamic> json) =>
       after: json['after'] as int?,
       count: json['count'] as int?,
       keyword: json['keyword'] as String?,
+      nm: json['nm'] as String?,
+      level: json['level'] as String?,
     );
 
 Map<String, dynamic> _$PaginationParamsToJson(PaginationParams instance) =>
@@ -18,4 +20,6 @@ Map<String, dynamic> _$PaginationParamsToJson(PaginationParams instance) =>
       'after': instance.after,
       'count': instance.count,
       'keyword': instance.keyword,
+      'nm': instance.nm,
+      'level': instance.level,
     };

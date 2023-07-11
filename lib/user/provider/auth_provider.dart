@@ -12,6 +12,7 @@ import 'package:recipe_app/user/repository/user_me_repository.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_app/user/view/join_screen.dart';
 import 'package:recipe_app/user/view/splash_screen.dart';
+import '../../recipe/view/category_recipe_detail_screen.dart';
 import '../model/user_model.dart';
 import '../view/login_screen.dart';
 
@@ -40,9 +41,9 @@ class AuthProviderNotifier extends ChangeNotifier{
         routes: [
           GoRoute(
               path: 'recipe/:rid',
-              name: RecipeDetailScreen.routeName,
+              name: CategoryRecipeDetailScreen.routeName,
               builder: (_,state) => RecipeDetailScreen(
-                recipe_id: int.parse(state.pathParameters['rid']!),
+                recipe_id: int.parse(state.pathParameters['rid']!)
                   //rid: 123
               )
           ),

@@ -36,7 +36,7 @@ class _RecipeRepository implements RecipeRepository {
     )
             .compose(
               _dio.options,
-              '/all',
+              '/allV2',
               queryParameters: queryParameters,
               data: _data,
             )

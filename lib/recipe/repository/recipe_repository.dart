@@ -26,7 +26,7 @@ abstract class RecipeRepository implements IBasePaginationRepository<RecipeModel
   factory RecipeRepository(Dio dio,{String baseUrl})
   = _RecipeRepository;
   
-  @GET('/all')
+  @GET('/allV2')
   @Headers({
     'accessToken':'true'
   })
