@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recipe_app/common/view/root_tap.dart';
 import 'package:recipe_app/recipe/provider/search_recipe_provider.dart';
+import 'package:recipe_app/recipe/view/recipe_comment_screen.dart';
 import 'package:recipe_app/recipe/view/recipe_screen.dart';
 import 'package:recipe_app/user/provider/clip_provider.dart';
 
@@ -19,6 +20,7 @@ class DefaultLayout extends ConsumerWidget {
   final bool clipCheck;
   final int recipe_id;
   final bool clipScreen;
+  final AppBar? tossAppBar;
 
   const DefaultLayout({
     required this.child,
@@ -31,13 +33,14 @@ class DefaultLayout extends ConsumerWidget {
     this.clipCheck=false,
     this.recipe_id=0,
     this.clipScreen=false,
+    this.tossAppBar=null,
     Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final state =ref.watch(clipProvider.notifier);
     final clipState = ref.watch(clipeDetailProvider(recipe_id));
-    print(clipState?.summary.toString());
+
     return Scaffold(
       appBar: isClip
           ?
@@ -54,6 +57,24 @@ class DefaultLayout extends ConsumerWidget {
                )
                    : null,
             actions: [
+              Padding(
+                padding: EdgeInsets.only(top:2),
+                child: IconButton(
+                    //상세 보기 페이지 -> 댓글 페이지
+                    onPressed: (){
+                      context.goNamed(RecipeCommentScreen.routeName,
+                          pathParameters: {
+                            'recipe_id':recipe_id.toString(),
+                            'rid':recipe_id.toString()
+                          });
+                    },
+                    icon: Icon(
+                      Icons.textsms_outlined,
+                      color: Colors.red,
+                      size: 28,
+                    )
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.only(right: 20),
                 child: IconButton(

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/common/view/root_tap.dart';
+import 'package:recipe_app/recipe/view/recipe_comment_screen.dart';
 import 'package:recipe_app/recipe/view/recipe_detail_screen.dart';
 import 'package:recipe_app/recipe/view/recipe_search_detail_screen.dart';
 import 'package:recipe_app/recipe/view/search_recipe_screen.dart';
@@ -45,7 +46,17 @@ class AuthProviderNotifier extends ChangeNotifier{
               builder: (_,state) => RecipeDetailScreen(
                 recipe_id: int.parse(state.pathParameters['rid']!)
                   //rid: 123
+              ),
+            routes: [
+                GoRoute(
+                  path: 'recipeComment/:recipe_id',
+                  name: RecipeCommentScreen.routeName,
+                  builder: (_,state) => RecipeCommentScreen(
+                  recipe_id: int.parse(state.pathParameters['recipe_id']!)
+                  //rid: 123
+                ),
               )
+            ]
           ),
           GoRoute(
               path: 'search/:search',
