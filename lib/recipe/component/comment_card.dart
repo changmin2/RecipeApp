@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CommentCard extends StatelessWidget {
+  final String content;
+  final String creator;
+  final DateTime createDate;
 
   const CommentCard({
+    required this.content,
+    required this.creator,
+    required this.createDate,
     Key? key
   }) : super(key: key);
 
@@ -21,7 +28,7 @@ class CommentCard extends StatelessWidget {
                   backgroundColor: Colors.white10,
                 ),
                 title: Text(
-                  '너무 맛있어요'
+                  content
                 ),
                 subtitle: Padding(
                   padding: EdgeInsets.only(top: 10),
@@ -29,10 +36,10 @@ class CommentCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'cm1'
+                        creator
                       ),
                       Text(
-                        DateTime.now().toString()
+                        DateFormat('yy/MM/dd HH:mm').format(createDate)
                       ),
                     ],
                   ),

@@ -45,6 +45,7 @@ dependencies:
   go_router: ^7.1.1
   flutter_native_splash: ^2.2.7
   change_app_package_name: ^1.1.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

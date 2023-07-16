@@ -33,6 +33,7 @@ class RecipeDetailModel extends RecipeModel{
   => _$RecipeDetailModelFromJson(json);
 
   Map<String,dynamic> toJson() => _$RecipeDetailModelToJson(this);
+
 }
 
 @JsonSerializable()

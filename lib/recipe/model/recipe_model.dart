@@ -44,4 +44,5 @@ class RecipeModel implements IModelWithId{
 
   Map<String,dynamic> toJson() => _$RecipeModelToJson(this);
 
+
 }

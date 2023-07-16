@@ -9,13 +9,15 @@ class PaginationParams{
   final String? keyword;
   final String? nm;
   final String? level;
+  final int? recipe_id;
 
   const PaginationParams({
     this.after,
     this.count,
     this.keyword,
     this.nm,
-    this.level
+    this.level,
+    this.recipe_id
   });
 
   PaginationParams copyWith({
@@ -23,14 +25,16 @@ class PaginationParams{
     int? count,
     String? keyword,
     String? nm,
-    String? level
+    String? level,
+    int? recipe_id,
   }){
     return PaginationParams(
         after: after ?? this.after,
         count: count ?? this.count,
         keyword: keyword ?? this.keyword,
         nm: nm ?? this.nm,
-        level: level ?? this.level
+        level: level ?? this.level,
+        recipe_id: recipe_id ?? this.recipe_id
     );
   }
 

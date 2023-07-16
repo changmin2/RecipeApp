@@ -13,6 +13,7 @@ PaginationParams _$PaginationParamsFromJson(Map<String, dynamic> json) =>
       keyword: json['keyword'] as String?,
       nm: json['nm'] as String?,
       level: json['level'] as String?,
+      recipe_id: json['recipe_id'] as int?,
     );
 
 Map<String, dynamic> _$PaginationParamsToJson(PaginationParams instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$PaginationParamsToJson(PaginationParams instance) =>
       'keyword': instance.keyword,
       'nm': instance.nm,
       'level': instance.level,
+      'recipe_id': instance.recipe_id,
     };
