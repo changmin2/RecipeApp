@@ -86,7 +86,7 @@ class _PaginationListViewStateV2<T extends IModelWithIdV2> extends ConsumerState
               child: Center(
                 child: cp is CursorPaginationFetchingMore ?
                 CircularProgressIndicator() :
-                Text('더이상 데이터가 없습니다.'),
+                Text('댓글이 없습니다.'),
               ),
             );
           }

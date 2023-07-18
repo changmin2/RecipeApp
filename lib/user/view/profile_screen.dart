@@ -170,7 +170,7 @@ class ProfiesScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 26),
           Text(
-            '앱 버전 1.0.0'
+            '앱 버전 1.0.4'
           ),
         ],
       ),

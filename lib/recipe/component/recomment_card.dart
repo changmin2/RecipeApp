@@ -8,39 +8,39 @@ class ReCommentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: EdgeInsets.only(left: 20),
-        child: ListTile(
-            leading: CircleAvatar(
-              radius: 30,
-              child: FittedBox(
-                  child: Icon(
-                    Icons.trending_flat,
-                    color: Colors.brown,
-                  )
-              ),
-              backgroundColor: Colors.white10,
+    return Padding(
+      padding: EdgeInsets.only(left: 20),
+      child: Card(
+          child: ListTile(
+              leading: CircleAvatar(
+                radius: 30,
+                child: FittedBox(
+                    child: Icon(
+                      Icons.trending_flat,
+                      color: Colors.brown,
+                    )
+                ),
+                backgroundColor: Colors.white10,
 
-            ),
-            title: Text(
-                '너무 맛있어요'
-            ),
-            subtitle: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                      'cm1'
-                  ),
-                  Text(
-                      DateTime.now().toString()
-                  )
-                ],
               ),
-            )
-        ),
+              title: Text(
+                  '너무 맛있어요'
+              ),
+              subtitle: Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                        'cm1'
+                    ),
+                    Text(
+                        DateTime.now().toString()
+                    )
+                  ],
+                ),
+              )
+          ),
       ),
     );
   }

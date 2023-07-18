@@ -75,6 +75,7 @@ class SearchRestaurantStateNotifier extends PaginationProvider<RecipeModel,Recip
       );
 
     }else{
+
       state = pState.copyWith(
           data: pState.data.map<RecipeModel>((e) => e.recipe_id==id ? resp : e).toList()
       );

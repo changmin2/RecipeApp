@@ -1,7 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:recipe_app/common/provider/comment_pagination_provider.dart';
-import 'package:recipe_app/common/provider/pagination_provider.dart';
 import 'package:recipe_app/recipe/component/comment_param.dart';
 import 'package:recipe_app/recipe/model/comment_model.dart';
 import 'package:recipe_app/recipe/repository/comment_repository.dart';
@@ -27,6 +25,7 @@ class CommentStateNotifier extends CommentPaginationProvider<CommentModel,Commen
     required super.recipe_id,
   });
 
+  //댓글 생성
   void createComment(String creator,String content) async {
     CommentParam commentParam = new CommentParam(
       creator: creator,
@@ -49,7 +48,26 @@ class CommentStateNotifier extends CommentPaginationProvider<CommentModel,Commen
           ]
       );
     }
-
   }
 
+  //댓글 삭제
+  void deleteComment(int comment_id) async {
+    await repository.deleteComment(comment_id: comment_id);
+
+    final pState = state as CursorPagination;
+    List<CommentModel> tempList = [];
+
+    //comment_id와 같은 항목은 삭제 했으므로 제외
+    for(var i =0; i<pState.data.length;i++){
+      if(pState.data[i].comment_id != comment_id){
+        tempList.add(pState.data[i]);
+      }
+
+    }
+    state = pState.copyWith(
+      data: tempList
+    );
+
+
+  }
 }

@@ -30,7 +30,10 @@ class _RecipeCommentScreenState extends ConsumerState<RecipeCommentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //댓글이 추가 되었을 수도 있으므로 프로바이더 초기화
     ref.invalidate(commentProvider);
+    final user = ref.read(userMeProvider) as UserModel;
+
     return DefaultLayoutV2(
       floatingActionButton: _floatingActionButton(context,ref,widget.recipe_id),
       appBar: _renderAppbar(context),
@@ -38,9 +41,12 @@ class _RecipeCommentScreenState extends ConsumerState<RecipeCommentScreen> {
         provider: commentProvider(widget.recipe_id),
         itemBuilder: <CommentModel>(_, int index,comment) {
           return CommentCard(
+            recipe_id:widget.recipe_id,
+            comment_id: comment.comment_id,
             content: comment.content,
             creator: comment.creator,
             createDate: comment.createDate,
+            username: user.username,
           );
         }
         , recipe_id:widget.recipe_id ,
