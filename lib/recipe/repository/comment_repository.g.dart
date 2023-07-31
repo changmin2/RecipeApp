@@ -101,6 +101,35 @@ class _CommentRepository implements CommentRepository {
     return null;
   }
 
+  @override
+  Future<Recomment> createReComment({
+    required comment_id,
+    commentParam = const CommentParam(),
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{r'accessToken': 'true'};
+    _headers.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    _data.addAll(commentParam?.toJson() ?? <String, dynamic>{});
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<Recomment>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/recomment/${comment_id}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Recomment.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

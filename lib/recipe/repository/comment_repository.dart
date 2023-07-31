@@ -53,5 +53,14 @@ abstract class CommentRepository implements IBasePaginationRepositoryV2<CommentM
     @Path() required int comment_id
   });
 
+
+  @POST("/recomment/{comment_id}")
+  @Headers({
+    'accessToken':'true'
+  })
+  Future<Recomment> createReComment({
+    @Path() required int comment_id,
+    @Body() CommentParam? commentParam = const CommentParam()
+  });
 }
 

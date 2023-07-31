@@ -47,6 +47,7 @@ class _RecipeCommentScreenState extends ConsumerState<RecipeCommentScreen> {
             creator: comment.creator,
             createDate: comment.createDate,
             username: user.username,
+            recomments: comment.commentList,
           );
         }
         , recipe_id:widget.recipe_id ,

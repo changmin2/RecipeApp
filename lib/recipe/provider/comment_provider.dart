@@ -67,7 +67,28 @@ class CommentStateNotifier extends CommentPaginationProvider<CommentModel,Commen
     state = pState.copyWith(
       data: tempList
     );
+  }
 
+  //대댓글 등록
+  void createRecommend(String creator,String content, int comment_id) async {
+    CommentParam commentParam = new CommentParam(
+        creator: creator,
+        content: content
+    );
 
+    final resp =  await repository.createReComment(comment_id: comment_id,commentParam: commentParam);
+
+    final pState = state as CursorPagination;
+
+    //comment_id와 같은 항목은 삭제 했으므로 제외
+    for(var i =0; i<pState.data.length;i++){
+      if(pState.data[i].comment_id == comment_id){
+        pState.data[i].commentList.add(resp);
+        state = pState.copyWith(
+          data: pState.data
+        );
+        break;
+      }
+    }
   }
 }

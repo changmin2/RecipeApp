@@ -70,7 +70,6 @@ class _PaginationListViewStateV2<T extends IModelWithIdV2> extends ConsumerState
     }
 
     final cp = state as CursorPagination<T>;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child:  ListView.separated(
@@ -92,6 +91,7 @@ class _PaginationListViewStateV2<T extends IModelWithIdV2> extends ConsumerState
           }
 
           final pItem = cp.data[index];
+
           //parsed변환
           return widget.itemBuilder(
             context,
