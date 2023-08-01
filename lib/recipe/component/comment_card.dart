@@ -101,6 +101,7 @@ class CommentCard extends ConsumerWidget {
                   recomment: recomments![index],
                   username: username!,
                   comment_id: comment_id,
+                  recipe_id: recipe_id
                 );
               }): Container()
         //대댓글 자리

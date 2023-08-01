@@ -36,6 +36,19 @@ class AuthRepository{
     return LoginResponse.fromJson(resp.data);
   }
 
+  Future<LoginResponse>token() async{
+    final resp = await dio.post(
+        '$baseUrl/token',
+        options: Options(
+            headers: {
+              'refreshToken':'true'
+            }
+        )
+    );
+
+    return LoginResponse.fromJson(resp.data);
+  }
+
   Future<void> withDrawl()async {
     await dio.get(
       '$baseUrl/withDrawal',

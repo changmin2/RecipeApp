@@ -62,5 +62,13 @@ abstract class CommentRepository implements IBasePaginationRepositoryV2<CommentM
     @Path() required int comment_id,
     @Body() CommentParam? commentParam = const CommentParam()
   });
+
+  @DELETE("/recomment/{recomment_id}")
+  @Headers({
+    'accessToken':'true'
+  })
+  Future<void> deleteReComment({
+    @Path() required int recomment_id
+  });
 }
 

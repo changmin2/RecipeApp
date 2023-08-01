@@ -51,6 +51,7 @@ class UserMeStateNotifier extends StateNotifier<UserModelBase?>{
       return;
     }
 
+
     final resp = await userMeRepository.getMe();
     Duration get = stopwatch.elapsed;
     stopwatch.stop();

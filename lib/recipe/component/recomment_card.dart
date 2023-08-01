@@ -10,11 +10,13 @@ class ReCommentCard extends ConsumerWidget {
   final Recomment recomment;
   final String username;
   final int comment_id;
+  final int recipe_id;
 
   const ReCommentCard({
     required this.recomment,
     required this.username,
     required this.comment_id,
+    required this.recipe_id,
     Key? key
   }) : super(key: key);
 
@@ -64,7 +66,7 @@ class ReCommentCard extends ConsumerWidget {
                 ),
               ),
               trailing: (recomment.creator == username || username == 'superadmin1') ? //삭제, 수정 권한 부여 -> 작성자와 현재 로그인한 유저 아이디가 같음녀 권한부여
-              _PopupMenuButtonPage(context,ref,comment_id)
+              _PopupMenuButtonPage(context,ref,recipe_id,recomment.recomment_id,comment_id)
                   : _NoCreatorPopupMenuButtonPage(context,ref)
           ),
 
@@ -74,16 +76,18 @@ class ReCommentCard extends ConsumerWidget {
 }
 
 
-PopupMenuButton _PopupMenuButtonPage (BuildContext context,WidgetRef ref,int comment_id){
+PopupMenuButton _PopupMenuButtonPage (BuildContext context,WidgetRef ref,int recipe_id,int recomment_id,int commnet_id){
   return PopupMenuButton(
     onSelected: (value){
-      if(value=='신고'){
+      if(value=='신고') {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('신고되었습니다. 누적된 신고자는 블라인드 처리 됩니다.'),
               duration: Duration(seconds: 1),
             )
         );
+      }else if(value == '삭제'){
+        ref.read(commentProvider(recipe_id).notifier).deleteReComment(recomment_id,commnet_id);
       }
     },
     itemBuilder: (context) {
@@ -108,10 +112,6 @@ PopupMenuButton _NoCreatorPopupMenuButtonPage (BuildContext context,WidgetRef re
     },
     itemBuilder: (context) {
       return [
-        // PopupMenuItem(
-        //   value: '대댓글',
-        //   child: Text('대댓글'),
-        // ),
         PopupMenuItem(
           value: '신고',
           child: Text('신고'),
