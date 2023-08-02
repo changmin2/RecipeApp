@@ -76,12 +76,12 @@ class CustomInterceptor extends Interceptor{
       return handler.reject(err);
     }
     //401이면 true
-    //final isStatus401 = err.response!.statusMessage
+    final isStatus401 = err.response!.statusCode ==401;
     //token을 발급 받으려다가 실패 한 경우
     final isPathRefresh = err.requestOptions.path == '/members/token';
 
     //refresh토큰을 발급 하려다 실패한 것도 아니고 401 에러가 떳을 때
-    if(!isPathRefresh) {
+    if(isStatus401 && !isPathRefresh) {
       final dio = Dio();
       try {
         final resp = await dio.post(
