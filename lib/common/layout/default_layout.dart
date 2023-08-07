@@ -21,6 +21,7 @@ class DefaultLayout extends ConsumerWidget {
   final int recipe_id;
   final bool clipScreen;
   final AppBar? tossAppBar;
+  final int? commentCount;
 
   const DefaultLayout({
     required this.child,
@@ -34,6 +35,7 @@ class DefaultLayout extends ConsumerWidget {
     this.recipe_id=0,
     this.clipScreen=false,
     this.tossAppBar=null,
+    this.commentCount=null,
     Key? key}) : super(key: key);
 
   @override
@@ -59,24 +61,38 @@ class DefaultLayout extends ConsumerWidget {
             actions: [
               Padding(
                 padding: EdgeInsets.only(top:2),
-                child: IconButton(
-                    //상세 보기 페이지 -> 댓글 페이지
-                    onPressed: (){
-                      context.goNamed(RecipeCommentScreen.routeName,
-                          pathParameters: {
-                            'recipe_id':recipe_id.toString(),
-                            'rid':recipe_id.toString()
-                          });
-                    },
-                    icon: Icon(
-                      Icons.textsms_outlined,
-                      color: Colors.red,
-                      size: 28,
+                child: Stack(
+                  children: [
+                    IconButton(
+                      //상세 보기 페이지 -> 댓글 페이지
+                      onPressed: (){
+                        context.goNamed(RecipeCommentScreen.routeName,
+                            pathParameters: {
+                              'recipe_id':recipe_id.toString(),
+                              'rid':recipe_id.toString()
+                            });
+                      },
+                      icon: Icon(
+                        Icons.textsms_outlined,
+                        color: Colors.red,
+                        size: 28,
+                      )
+                    ),
+                    Positioned(
+                      bottom: 7,
+                      right: 5,
+                      child: Text(
+                        commentCount.toString(),
+                        style: TextStyle(
+                          color: Colors.red
+                        ),
+                      ),
                     )
+                  ]
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(right: 20),
+                padding: EdgeInsets.only(right: 20,bottom: 5),
                 child: IconButton(
                   onPressed: (){
                     clipState ==null ?
@@ -84,8 +100,8 @@ class DefaultLayout extends ConsumerWidget {
                   },
                   icon: Icon(
                       clipState==null ?
-                      Icons.label_important_outline
-                      : Icons.label_important,
+                      Icons.star_border_rounded
+                      : Icons.star_rate_rounded,
                       color: Colors.red,
                       size: 35,
                   )

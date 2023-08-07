@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../model/comment_model.dart';
+import '../model/recipe_detail_model.dart';
+import '../provider/category_recipe_provider.dart';
 import '../provider/comment_provider.dart';
 
 class ReCommentCard extends ConsumerWidget {
@@ -88,6 +90,10 @@ PopupMenuButton _PopupMenuButtonPage (BuildContext context,WidgetRef ref,int rec
         );
       }else if(value == '삭제'){
         ref.read(commentProvider(recipe_id).notifier).deleteReComment(recomment_id,commnet_id);
+        final detailState = ref.watch(categoryDetailProvider(recipe_id));
+        if(detailState is RecipeDetailModel){
+          detailState.commentCount = detailState.commentCount-1;
+        };
       }
     },
     itemBuilder: (context) {

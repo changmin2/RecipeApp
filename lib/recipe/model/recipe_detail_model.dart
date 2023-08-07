@@ -8,6 +8,7 @@ part 'recipe_detail_model.g.dart';
 class RecipeDetailModel extends RecipeModel{
   final List<DetailDto> data;
   final List<IngredientDto> ingredients;
+  int commentCount;
 
   RecipeDetailModel({
     required super.recipe_id,
@@ -27,6 +28,7 @@ class RecipeDetailModel extends RecipeModel{
     required super.detail_url,
     required this.data,
     required this.ingredients,
+    required this.commentCount
   });
 
   factory RecipeDetailModel.fromJson(Map<String,dynamic> json)

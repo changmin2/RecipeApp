@@ -109,8 +109,8 @@ class ClipCard extends ConsumerWidget {
             },
             icon: Icon(
               clipState==null ?
-              Icons.label_important_outline
-                  : Icons.label_important,
+              Icons.star_border_outlined
+                  : Icons.star_rate,
               color: Colors.red,
               size: 35,
             )

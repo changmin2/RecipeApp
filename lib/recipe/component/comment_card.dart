@@ -8,6 +8,8 @@ import 'package:recipe_app/recipe/repository/comment_repository.dart';
 import '../../user/model/user_model.dart';
 import '../../user/provider/user_me_provider.dart';
 import '../model/comment_model.dart';
+import '../model/recipe_detail_model.dart';
+import '../provider/category_recipe_provider.dart';
 
 class CommentCard extends ConsumerWidget {
   final int recipe_id;
@@ -114,9 +116,11 @@ class CommentCard extends ConsumerWidget {
 
 PopupMenuButton _PopupMenuButtonPage (BuildContext context,WidgetRef ref,int comment_id,int recipe_id){
     return PopupMenuButton(
-      onSelected: (value){
-        if(value=='삭제'){
-          ref.read(commentProvider(recipe_id).notifier).deleteComment(comment_id);
+      onSelected: (value) async {
+        if(value=='삭제') {
+           await ref.read(commentProvider(recipe_id).notifier).deleteComment(comment_id);
+           //댓글 밑에 달린 대댓글 갯수를 가져오지 않고 다시 업데이트
+           await ref.read(categoryRecipeProvider.notifier).getDetail(id: recipe_id);
         }else if(value=='신고'){
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -165,6 +169,10 @@ PopupMenuButton _PopupMenuButtonPage (BuildContext context,WidgetRef ref,int com
                                 final state = ref.watch(userMeProvider);
                                 final pState = state as UserModel;
                                 ref.read(commentProvider(recipe_id).notifier).createRecommend(pState.username,_comment, comment_id);
+                                final detailState = ref.watch(categoryDetailProvider(recipe_id));
+                                if(detailState is RecipeDetailModel){
+                                  detailState.commentCount = detailState.commentCount+1;
+                                };
                                 Navigator.pop(context);
                               }
                             },
@@ -257,6 +265,10 @@ PopupMenuButton _NoCreatorPopupMenuButtonPage (BuildContext context,WidgetRef re
                               final state = ref.watch(userMeProvider);
                               final pState = state as UserModel;
                               ref.read(commentProvider(recipe_id).notifier).createRecommend(pState.username,_comment, comment_id);
+                              final detailState = ref.watch(categoryDetailProvider(recipe_id));
+                              if(detailState is RecipeDetailModel){
+                                detailState.commentCount = detailState.commentCount+1;
+                              };
                               Navigator.pop(context);
                             }
                           },

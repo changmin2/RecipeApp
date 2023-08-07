@@ -7,6 +7,8 @@ import 'package:recipe_app/common/layout/default_layout_v2.dart';
 import 'package:recipe_app/recipe/component/comment_card.dart';
 import 'package:recipe_app/recipe/component/recomment_card.dart';
 import 'package:recipe_app/recipe/model/comment_model.dart';
+import 'package:recipe_app/recipe/model/recipe_detail_model.dart';
+import 'package:recipe_app/recipe/provider/category_recipe_provider.dart';
 
 import '../../common/component/pagination_list_viewV2.dart';
 import '../../user/model/user_model.dart';
@@ -120,6 +122,11 @@ FloatingActionButton _floatingActionButton(BuildContext context,WidgetRef ref,in
                                 final pState = state as UserModel;
 
                                 ref.watch(commentProvider(recipe_id).notifier).createComment(pState.username,_comment);
+                                final detailState = ref.watch(categoryDetailProvider(recipe_id));
+                                if(detailState is RecipeDetailModel){
+                                  detailState.commentCount = detailState.commentCount+1;
+                                };
+
                                 Navigator.pop(context);
                               }
                             },

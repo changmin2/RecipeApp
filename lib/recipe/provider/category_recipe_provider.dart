@@ -41,7 +41,7 @@ class SearchRestaurantStateNotifier extends PaginationProvider<RecipeModel,Recip
   void init(){
     state is CursorPaginationLoading;
   }
-  void getDetail({
+  Future<void> getDetail({
     required int id,
   })async{
     // 만약에 아직 데이터가 하나도 없는 상태라면 (CursorPagination이 아니라면)
@@ -75,7 +75,6 @@ class SearchRestaurantStateNotifier extends PaginationProvider<RecipeModel,Recip
       );
 
     }else{
-
       state = pState.copyWith(
           data: pState.data.map<RecipeModel>((e) => e.recipe_id==id ? resp : e).toList()
       );

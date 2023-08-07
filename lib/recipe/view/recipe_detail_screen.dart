@@ -48,6 +48,7 @@ class _RecipeDetailScreenState extends ConsumerState<RecipeDetailScreen> {
           isDetail: true,
           isClip: true,
           recipe_id: widget.recipe_id,
+          commentCount: state.commentCount,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
