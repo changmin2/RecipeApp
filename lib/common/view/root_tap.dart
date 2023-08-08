@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:recipe_app/Chef/view/shef_screen.dart';
 import 'package:recipe_app/common/layout/default_layout.dart';
 import 'package:recipe_app/recipe/view/recipe_screen.dart';
 import 'package:recipe_app/user/provider/clip_provider.dart';
@@ -19,13 +20,14 @@ class RootTab extends ConsumerStatefulWidget {
 class _RootTabState extends ConsumerState<RootTab> with SingleTickerProviderStateMixin{
 
   late TabController controller;
-  int index = 0;
+  int index = 1;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller = TabController(length: 3, vsync: this);
+    controller = TabController(length: 4, vsync: this);
+    controller.animateTo(index);
   }
 
   @override
@@ -43,6 +45,7 @@ class _RootTabState extends ConsumerState<RootTab> with SingleTickerProviderStat
         physics: NeverScrollableScrollPhysics(),
         controller: controller,
         children: [
+          ChefScreen(),
           RecipeScreen(),
           ClipScreen(),
           ProfiesScreen()
@@ -63,6 +66,10 @@ class _RootTabState extends ConsumerState<RootTab> with SingleTickerProviderStat
 
         currentIndex: index,
         items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.outlet),
+              label: '쉐프'
+          ),
           BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
               label: '홈'

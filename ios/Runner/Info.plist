@@ -35,6 +35,12 @@
 		<key>UIStatusBarHidden</key>
 		<true/>
 		<key>UISupportedInterfaceOrientations</key>
+		<key>NSPhotoLibraryUsageDescription</key>
+        <string></string>
+        <key>NSCameraUsageDescription</key>
+        <string></string>
+        <key>NSMicrophoneUsageDescription</key>
+        <string></string>
 		<array>
 			<string>UIInterfaceOrientationPortrait</string>
 			<string>UIInterfaceOrientationLandscapeLeft</string>
