@@ -25,6 +25,14 @@ class _ChefRegisterScreenState extends State<ChefRegisterScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 30, width: double.infinity),
+            Text(
+              '1. 썸네일',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 20
+              ),
+            ),
+            SizedBox(height: 15, width: double.infinity),
             Center(
               child: DottedBorder(
                 color: Colors.grey,
@@ -124,7 +132,7 @@ AppBar _renderAppbar(BuildContext context){
   return AppBar(
       backgroundColor: Colors.white,
       title: Text(
-        '레시피 등록하기',
+        '레시피 등록하기 (1)',
         style: TextStyle(
             color: Colors.brown,
             fontWeight: FontWeight.w700,
