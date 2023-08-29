@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:recipe_app/Chef/view/chef_register_screen.dart';
+import 'package:recipe_app/Chef/view/chef_register_screen2.dart';
 import 'package:recipe_app/common/view/root_tap.dart';
 import 'package:recipe_app/recipe/view/recipe_comment_screen.dart';
 import 'package:recipe_app/recipe/view/recipe_detail_screen.dart';
@@ -79,7 +80,15 @@ class AuthProviderNotifier extends ChangeNotifier{
           GoRoute(
               path: 'chef/register',
               name: ChefRegisterScreen.routeName,
-              builder: (_,state) => ChefRegisterScreen()
+              builder: (_,state) => ChefRegisterScreen(),
+              routes: [
+                GoRoute(
+                    path: 'chef/register/two',
+                    name: ChefRegisteScreen2.routeName,
+                    builder: (_,state) => ChefRegisteScreen2(
+                    )
+                ),
+              ]
           )
         ]
     ),

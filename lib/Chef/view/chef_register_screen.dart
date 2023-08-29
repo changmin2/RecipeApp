@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+import 'package:recipe_app/Chef/view/chef_register_screen2.dart';
 import 'package:recipe_app/common/layout/default_layout_v2.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -19,12 +22,19 @@ class _ChefRegisterScreenState extends State<ChefRegisterScreen> {
   //난이도
   String dropdownValue ='선택';
   String category = '선택';
+  String dishNM = '';
+  String dishDE = '';
+  String dishTE = '';
+  String dishKL = '';
 
   final ImagePicker picker = ImagePicker();
   final _levelKey = GlobalKey<FormState>();
   final _categoryKey = GlobalKey<FormState>();
+  final _fieldKey = GlobalKey<FormState>();
+
   final _levels = ['선택','초보환영','보통','어려움'];
   final _categroies = ['선택','한식','중국','동남아시아','서양','이탈리아','퓨전','일본'];
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,25 +128,66 @@ class _ChefRegisterScreenState extends State<ChefRegisterScreen> {
                     ),
                   ),
                 ),
-                //음식명
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: '음식명'
-                  ),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: '간단한 설명'
-                  ),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: '조리시간(분)'
-                  ),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                      labelText: '칼로리'
+                Form(
+                  key:_fieldKey,
+                  child: Column(
+                    children: [
+                      //음식명
+                      TextFormField(
+                        decoration: InputDecoration(
+                            labelText: '음식명'
+                        ),
+                        onSaved: (val){
+                          dishNM = val!;
+                        },
+                        validator: (val){
+                          if(val!.length<1){
+                            return '음식명을 입력해주세요.';
+                          }
+                        },
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                            labelText: '간단한 설명'
+                        ),
+                        onSaved: (val){
+                          dishDE = val!;
+                        },
+                        validator: (val){
+                          if(val!.length<1){
+                            return '요리 설명을 입력해주세요';
+                          }
+                        },
+                      ),
+                      TextFormField(
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        decoration: InputDecoration(
+                            labelText: '조리시간(분)'
+                        ),
+                        onSaved: (val){
+                          dishTE = val!;
+                        },
+                        validator: (val){
+                          if(val!.length<1){
+                            return '요리의 조리시간을 입력해주세요';
+                          }
+                        },
+                      ),
+                      TextFormField(
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                        decoration: InputDecoration(
+                            labelText: '칼로리'
+                        ),
+                        onSaved: (val){
+                          dishKL = val!;
+                        },
+                        validator: (val){
+                          if(val!.length<1){
+                            return '요리의 칼로리를 입력해주세요';
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 20, width: double.infinity),
@@ -171,7 +222,7 @@ class _ChefRegisterScreenState extends State<ChefRegisterScreen> {
                             )).toList(),
                             validator: (value) {
                               if (value == '선택') {
-                                return 'Please select an option';
+                                return '선택해주세요';
                               }
                               return null;
                             },
@@ -211,13 +262,42 @@ class _ChefRegisterScreenState extends State<ChefRegisterScreen> {
                             )).toList(),
                             validator: (value) {
                               if (value == '선택') {
-                                return 'Please select an option';
+                                return '선택해주세요';
                               }
                               return null;
                             },
                           ),
                         )
                       ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 30),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: (){
+                      _levelKey.currentState!.save();
+                      _categoryKey.currentState!.save();
+                      _fieldKey.currentState!.save();
+                      if(_fieldKey.currentState!.validate() && _categoryKey.currentState!.validate()
+                          && _levelKey.currentState!.validate()){
+                        if(_image==null){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('음식 사진을 선택해주세요!'),
+                                duration: Duration(seconds: 1),
+                              )
+                          );
+                        }else{
+                          context.goNamed(
+                            ChefRegisteScreen2.routeName
+                          );
+                        }
+                      }
+                    },
+                    child: Text('다음으로'),
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.brown
                     ),
                   ),
                 )
