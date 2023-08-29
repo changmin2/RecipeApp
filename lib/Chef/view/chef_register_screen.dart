@@ -21,11 +21,18 @@ class _ChefRegisterScreenState extends State<ChefRegisterScreen> {
   XFile? _image;
   //난이도
   String dropdownValue ='선택';
+  //카테고리
   String category = '선택';
+  //음식이름
   String dishNM = '';
+  //음식설명
   String dishDE = '';
+  //조리시간
   String dishTE = '';
+  //칼로리
   String dishKL = '';
+  //다음 단계로 전달할 값
+  Map param = {};
 
   final ImagePicker picker = ImagePicker();
   final _levelKey = GlobalKey<FormState>();
@@ -289,8 +296,32 @@ class _ChefRegisterScreenState extends State<ChefRegisterScreen> {
                               )
                           );
                         }else{
+                          /*
+                          //음식 이미지
+                          XFile? _image;
+                          //난이도
+                          String dropdownValue ='선택';
+                          //카테고리
+                          String category = '선택';
+                          //음식이름
+                          String dishNM = '';
+                          //음식설명
+                          String dishDE = '';
+                          //조리시간
+                          String dishTE = '';
+                          //칼로리
+                          String dishKL = '';
+                           */
+                          param.addAll({
+                            'dishIM':_image,
+                            'dishNM':dishNM,
+                            'dishDE':dishDE,
+                            'dishTE':dishTE,
+                            'dishKL':dishKL
+                          });
                           context.goNamed(
-                            ChefRegisteScreen2.routeName
+                            ChefRegisteScreen2.routeName,
+
                           );
                         }
                       }

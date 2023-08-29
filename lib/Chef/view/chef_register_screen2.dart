@@ -3,7 +3,9 @@ import 'package:recipe_app/common/layout/default_layout_v2.dart';
 
 class ChefRegisteScreen2 extends StatefulWidget {
   static get routeName => 'chefRegister2';
-  const ChefRegisteScreen2({Key? key}) : super(key: key);
+  const ChefRegisteScreen2({
+    Key? key
+  }) : super(key: key);
 
   @override
   State<ChefRegisteScreen2> createState() => _ChefRegisteScreen2State();

@@ -86,6 +86,7 @@ class AuthProviderNotifier extends ChangeNotifier{
                     path: 'chef/register/two',
                     name: ChefRegisteScreen2.routeName,
                     builder: (_,state) => ChefRegisteScreen2(
+                      //rid: 123
                     )
                 ),
               ]
