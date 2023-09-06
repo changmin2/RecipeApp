@@ -16,8 +16,11 @@ class ChefRegisteScreen2 extends StatefulWidget {
 }
 
 class _ChefRegisteScreen2State extends State<ChefRegisteScreen2> {
+  List items = [];
+
   @override
   Widget build(BuildContext context) {
+    print(items.toString());
     //첫번째 단계에서 전달받은 값
     Map toss = widget.query as Map<String,String>;
     return DefaultLayoutV2(
@@ -39,7 +42,11 @@ class _ChefRegisteScreen2State extends State<ChefRegisteScreen2> {
                     ),
                   ),
                   OutlinedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        setState(() {
+                          items.add(5);
+                        });
+                      },
                       child: Text('추가')
                   )
                 ],
