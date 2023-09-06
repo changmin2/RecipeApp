@@ -18,15 +18,34 @@ class ChefRegisteScreen2 extends StatefulWidget {
 class _ChefRegisteScreen2State extends State<ChefRegisteScreen2> {
   @override
   Widget build(BuildContext context) {
+    //첫번째 단계에서 전달받은 값
     Map toss = widget.query as Map<String,String>;
-    print(toss.toString());
     return DefaultLayoutV2(
         appBar: _renderAppbar(context),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('두번째')
-          ],
+        child: Padding(
+          padding: EdgeInsets.only(left: 20,right: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '재료등록',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  OutlinedButton(
+                      onPressed: (){},
+                      child: Text('추가')
+                  )
+                ],
+              )
+            ],
+          ),
         )
     );
   }
