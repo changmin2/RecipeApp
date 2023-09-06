@@ -85,9 +85,9 @@ class AuthProviderNotifier extends ChangeNotifier{
                 GoRoute(
                     path: 'chef/register/two',
                     name: ChefRegisteScreen2.routeName,
-                    builder: (_,state) => ChefRegisteScreen2(
-                      //rid: 123
-                    )
+                    builder: (_,state) {
+                      return ChefRegisteScreen2(query: state.queryParameters.toString());
+                    }
                 ),
               ]
           )

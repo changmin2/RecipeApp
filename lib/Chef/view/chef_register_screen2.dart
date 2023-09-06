@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:recipe_app/common/layout/default_layout_v2.dart';
 
 class ChefRegisteScreen2 extends StatefulWidget {
   static get routeName => 'chefRegister2';
+  final  query;
   const ChefRegisteScreen2({
+    required this.query,
     Key? key
   }) : super(key: key);
 
@@ -14,6 +18,8 @@ class ChefRegisteScreen2 extends StatefulWidget {
 class _ChefRegisteScreen2State extends State<ChefRegisteScreen2> {
   @override
   Widget build(BuildContext context) {
+    Map toss = widget.query as Map<String,String>;
+    print(toss.toString());
     return DefaultLayoutV2(
         appBar: _renderAppbar(context),
         child: Column(
