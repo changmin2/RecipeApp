@@ -24,6 +24,7 @@ final categoryRecipeProvider = StateNotifierProvider<SearchRestaurantStateNotifi
       final repository = ref.watch(recipeRepositoryProvider);
       final nmState = ref.watch(nmProvider);
       final levelState = ref.watch(levelProvider);
+
       final notifier = SearchRestaurantStateNotifier(repository: repository,nm:nmState,level: levelState);
 
       return notifier;

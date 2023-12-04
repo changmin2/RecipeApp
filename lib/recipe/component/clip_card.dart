@@ -48,6 +48,7 @@ class ClipCard extends ConsumerWidget {
     else rating=3;
 
     return Card(
+
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0)
       ),

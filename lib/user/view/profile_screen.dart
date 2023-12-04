@@ -61,7 +61,12 @@ class ProfiesScreen extends ConsumerWidget {
                       title: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          new Text("로그아웃")
+                          new Text(
+                              "로그아웃",
+                            style: TextStyle(
+                              color: Colors.white
+                            ),
+                          )
                         ],
                       ),
                       content: Column(
@@ -102,7 +107,10 @@ class ProfiesScreen extends ConsumerWidget {
               );
             },
             child: Text(
-                '로그아웃'
+                '로그아웃',
+                style: TextStyle(
+                color: Colors.white
+              ),
             ),
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.brown
@@ -162,7 +170,10 @@ class ProfiesScreen extends ConsumerWidget {
 
             },
             child: Text(
-                '회원탈퇴'
+                '회원탈퇴',
+              style: TextStyle(
+                color: Colors.white
+              ),
             ),
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.brown

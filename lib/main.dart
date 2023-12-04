@@ -19,10 +19,10 @@ class _App extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final router = ref.watch(routerProvider);
 
-
-    // final state = ref.watch(secureStorageProvider);
-    // state.deleteAll();
     return MaterialApp.router(
+      theme: ThemeData(
+        useMaterial3: false
+      ),
       debugShowCheckedModeBanner: false,
       routerDelegate: router.routerDelegate,
       routeInformationParser: router.routeInformationParser,
